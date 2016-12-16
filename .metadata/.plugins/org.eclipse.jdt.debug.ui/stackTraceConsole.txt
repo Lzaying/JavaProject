@@ -1,0 +1,23 @@
+public static Cashier  check(String id, String password) {
+		int i = 0;
+		Cashier cashier=new Cashier();
+		String sql = "select *  from User where Id='" + id
+				+ "' and password='" + password + "'and role=2";
+		ResultSet rs = Dao.executeQuery(sql);
+		try {
+			while (rs.next()) {
+				String names = rs.getString(1);
+				cashier.setId(rs.getString("Id"));
+				cashier.setName(rs.getString("Name"));
+				cashier.setGrade(rs.getString("Role"));
+				cashier.setPassword(rs.getString("Password"));
+				if (names != null) {
+					i = 1;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Dao.close();
+		return cashier;	
+	}

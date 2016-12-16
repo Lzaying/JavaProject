@@ -61,10 +61,10 @@ public class Dao {
 	}
 	
     //医生登陆的方法
-    public static Doctor check(String id, String password) {
+    public static Doctor doctorCheck(String id, String password) {
 		int i = 0;
 		Doctor doctor=new Doctor();
-		String sql = "select *  from User where Id='" + id
+		String sql = "select * from User where Id='" + id
 				+ "' and password='" + password + "'and role=1";
 		ResultSet rs = Dao.executeQuery(sql);
 		try {
@@ -86,10 +86,10 @@ public class Dao {
 	}
 	
     //收费人员登陆
-    public static Cashier  check(String id, String password) {
+    public static Cashier  cashierCheck(String id, String password) {
 		int i = 0;
 		Cashier cashier=new Cashier();
-		String sql = "select *  from User where Id='" + id
+		String sql = "select * from User where Id='" + id
 				+ "' and password='" + password + "'and role=2";
 		ResultSet rs = Dao.executeQuery(sql);
 		try {
@@ -111,10 +111,10 @@ public class Dao {
 	}
 	
     //药师登陆方法
-    public static Pharmacist  check(String id, String password) {
+    public static Pharmacist  pharmacistCheck(String id, String password) {
 		int i = 0;
 		Pharmacist pharmacist=new Pharmacist();
-		String sql = "select *  from User where Id='" + id
+		String sql = "select * from User where Id='" + id
 				+ "' and password='" + password + "'and role=3";
 		ResultSet rs = Dao.executeQuery(sql);
 		try {
@@ -136,10 +136,10 @@ public class Dao {
 	}
 	
     //院长登陆方法
-    public static Dean  check(String id, String password) {
+    public static Dean  deanCheck(String id, String password) {
 		int i = 0;
 		Dean dean=new Dean();
-		String sql = "select *  from User where Id='" + id
+		String sql = "select * from User where Id='" + id
 				+ "' and password='" + password + "'and role=4";
 		ResultSet rs = Dao.executeQuery(sql);
 		try {
@@ -161,10 +161,10 @@ public class Dao {
 	}
     
     //管理员登陆方法
-    public static Admin  check(String id, String password) {
+    public static Admin  adminCheck(String id, String password) {
 		int i = 0;
 		Admin admin=new Admin();
-		String sql = "select *  from User where Id='" + id
+		String sql = "select * from User where Id='" + id
 				+ "' and password='" + password + "'and role=0";
 		ResultSet rs = Dao.executeQuery(sql);
 		try {
@@ -189,7 +189,7 @@ public class Dao {
     //查询所有药品的信息
     public static ArrayList selectDrugInfo() {
 		ArrayList list=new ArrayList();
-		String sql = "select *  from Drug";
+		String sql = "select * from Drug";
 		ResultSet rs = Dao.executeQuery(sql);
 		try {
 			while (rs.next()) {
@@ -231,11 +231,11 @@ public class Dao {
 		return list;
 	}
     
-    //
+    //增加某种药品
     public static int insertDrug(int drugId,String drugName,double price,String unit,int amout){
 		int i=0;
 		try{
-			String sql="insert into Drug  values("+drugId+",'"+drugName+"',"+price+",'"+unit+"',"+amout+")";
+			String sql="insert into Drug values("+drugId+",'"+drugName+"',"+price+",'"+unit+"',"+amout+")";
 			i=Dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -248,7 +248,7 @@ public class Dao {
     public static int updateDrug(int drugId,String drugName,double price,String unit,int amount){
 		int i=0;
 		try{
-			String sql="update Drug  set Drug_Id="+drugId+",Drug_Name='"+drugName+"',Price="+price+",Unit='"+unit+"' ,Amount="+amount+"  where Drug_Id="+drugId+"";
+			String sql="update Drug set Drug_Id="+drugId+",Drug_Name='"+drugName+"',Price="+price+",Unit='"+unit+"' ,Amount="+amount+" where Drug_Id="+drugId+"";
 			i=Dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -277,7 +277,7 @@ public class Dao {
     public static int delDrug(int drugId){
    		int i=0;
   		try{
-  			String sql="delete from Drug where ISBN="+drugId+"";
+  			String sql="delete from Drug where Drug_Id="+drugId+"";
  			i=Dao.executeUpdate(sql);
  		}catch(Exception e){
  			e.printStackTrace();
@@ -297,7 +297,7 @@ public class Dao {
 				AppointInfo appointInfo=new AppointInfo();
 				appointInfo.setAppointmentId(rs.getInt("Appointment_Id"));
 				appointInfo.setPatientName(rs.getString("Patient_Name"));
-				appointInfo.setTime(rs.getString("Time"));
+				appointInfo.setTime(rs.getDate("Time"));
 				appointInfo.setDepartment(rs.getDouble("Department"));
 				list.add(appointInfo);
 			}
@@ -308,7 +308,293 @@ public class Dao {
 		return list;
 	}
     
+//对User表的操作
+    //查询所有用户的信息
+    public static ArrayList selectUserInfo() {
+		ArrayList list=new ArrayList();
+		String sql = "select *  from User ";
+		ResultSet rs = Dao.executeQuery(sql);
+		try {
+			while (rs.next()) {
+				UserInfo userInfo=new UserInfo();
+				userInfo.setId(rs.getString("Id"));
+				userInfo.setPassword(rs.getString("Password"));
+				userInfo.setRole(rs.getInt("Role"));
+				userInfo.setName(rs.getString("Name"));
+				list.add(userInfo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Dao.close();
+		return list;
+	}
     
+    //按用户Id查询某一账号信息
+    public static ArrayList selectUserInfo(String id) {
+		ArrayList list=new ArrayList();
+		String sql = "select *  from User where Id='"+id+"'";
+		ResultSet rs = Dao.executeQuery(sql);
+		try {
+			while (rs.next()) {
+				UserInfo userInfo=new UserInfo();
+				userInfo.setId(rs.getString("Id"));
+				userInfo.setPassword(rs.getString("Password"));
+				userInfo.setRole(rs.getInt("Role"));
+				userInfo.setName(rs.getString("Name"));
+				list.add(userInfo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Dao.close();
+		return list;
+	}
+    
+    //按用户Id更新某一账号信息
+    public static int updateUser(String id,String password,int role,String name){
+		int i=0;
+		try{
+			String sql="update User set Id='"+id+"',Password='"+password+"',Role="+role+",Name='"+name+"' where Id='"+id+"'";
+			i=Dao.executeUpdate(sql);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		Dao.close();
+		return i;
+	}
+    
+    //新增用户
+    public static int insertUser(String id,String password,int role,String name){
+    	int i=0;
+		try{
+			String sql="insert into User values('"+id+"','"+password+"',"+role+",'"+name+"')";
+			i=Dao.executeUpdate(sql);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		Dao.close();
+		return i;
+    }
+    
+    //删除用户
+    public static int delUser(int id){
+   		int i=0;
+  		try{
+  			String sql="delete from User where Id='"+id+"'";
+ 			i=Dao.executeUpdate(sql);
+ 		}catch(Exception e){
+ 			e.printStackTrace();
+ 		}
+ 		Dao.close();
+ 		return i;
+ 	}
+    
+//对Department表的操作
+    //查询所有科室信息
+    public static ArrayList selectDepartInfo() {
+		ArrayList list=new ArrayList();
+		String sql = "select *  from Department ";
+		ResultSet rs = Dao.executeQuery(sql);
+		try {
+			while (rs.next()) {
+				DepartInfo departInfo=new DepartInfo();
+				departInfo.setDepartment(rs.getString("Department"));
+				departInfo.setInformation(rs.getString("Information"));
+				departInfo.setRoom(rs.getInt("Room"));
+				list.add(departInfo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Dao.close();
+		return list;
+	}
+    
+    //通过科室名查询某一科室的信息
+    public static ArrayList selectDepartInfo(String department) {
+		ArrayList list=new ArrayList();
+		String sql = "select *  from Department where Department='"+department+"'";
+		ResultSet rs = Dao.executeQuery(sql);
+		try {
+			while (rs.next()) {
+				DepartInfo departInfo=new DepartInfo();
+				departInfo.setDepartment(rs.getString("Department"));
+				departInfo.setInformation(rs.getString("Information"));
+				departInfo.setRoom(rs.getInt("Room"));
+				list.add(departInfo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Dao.close();
+		return list;
+	}
+    
+    //通过房间号查询某一科室的信息
+    public static ArrayList selectDepartInfo(int room) {
+		ArrayList list=new ArrayList();
+		String sql = "select *  from Department where Room='"+room+"'";
+		ResultSet rs = Dao.executeQuery(sql);
+		try {
+			while (rs.next()) {
+				DepartInfo departInfo=new DepartInfo();
+				departInfo.setDepartment(rs.getString("Department"));
+				departInfo.setInformation(rs.getString("Information"));
+				departInfo.setRoom(rs.getInt("Room"));
+				list.add(departInfo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Dao.close();
+		return list;
+	}
+    
+    //更新某科室信息(按科室名)
+    public static int updateDepartInfoD(String department,String information,int room) {
+    	int i=0;
+		try{
+			String sql="update Department set Department='"+department+"',Information='"+information+"',Room="+room+" where Deparment='"+department+"'";
+			i=Dao.executeUpdate(sql);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		Dao.close();
+		return i;
+	}
+    
+  //更新某科室信息(按房间号)
+    public static int updateDepartInfoR(String department,String information,int room) {
+    	int i=0;
+		try{
+			String sql="update Department set Department='"+department+"',Information='"+information+"',Room="+room+" where Room="+room+"";
+			i=Dao.executeUpdate(sql);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		Dao.close();
+		return i;
+	}
+    
+    //增加科室
+    public static int insertDepartInfo(String department,String information,int room) {
+    	int i=0;
+		try{
+			String sql="insert into Department values('"+department+"','"+information+"',"+room+")";
+			i=Dao.executeUpdate(sql);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		Dao.close();
+		return i;
+	}
+    
+    //删除科室
+    public static int delDepartment(String department){
+   		int i=0;
+  		try{
+  			String sql="delete from Department  where Department='"+department+"'";
+ 			i=Dao.executeUpdate(sql);
+ 		}catch(Exception e){
+ 			e.printStackTrace();
+ 		}
+ 		Dao.close();
+ 		return i;
+ 	}
+    
+//对Register表的操作
+    //查询挂号信息
+    public static ArrayList selectRegisterInfo() {
+		ArrayList list=new ArrayList();
+		String sql = "select *  from RegisterInfo ";
+		ResultSet rs = Dao.executeQuery(sql);
+		try {
+			while (rs.next()) {
+				RegisterInfo registerInfo=new RegisterInfo();
+				registerInfo.setRegisterId(rs.getInt("Register_Id"));
+				registerInfo.setPatientId(rs.getString("Patient_Id"));
+				registerInfo.setDepartment(rs.getString("Department"));
+				registerInfo.setDoctor(rs.getString("Doctor"));
+				registerInfo.setTime(rs.getDate("Time"));
+				registerInfo.setIsLooked(rs.getInt("IsLooked"));
+				list.add(registerInfo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Dao.close();
+		return list;
+	}
+    
+    //按病人Id查询挂号信息
+    public static ArrayList selectRegisterInfoP(int patientId) {
+		ArrayList list=new ArrayList();
+		String sql = "select *  from RegisterInfo where Patient_Id="+patientId+"";
+		ResultSet rs = Dao.executeQuery(sql);
+		try {
+			while (rs.next()) {
+				RegisterInfo registerInfo=new RegisterInfo();
+				registerInfo.setRegisterId(rs.getInt("Register_Id"));
+				registerInfo.setPatientId(rs.getString("Patient_Id"));
+				registerInfo.setDepartment(rs.getString("Department"));
+				registerInfo.setDoctor(rs.getString("Doctor"));
+				registerInfo.setTime(rs.getDate("Time"));
+				registerInfo.setIsLooked(rs.getInt("IsLooked"));
+				list.add(registerInfo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Dao.close();
+		return list;
+	}
+    
+    //按医生查询挂号信息
+    public static ArrayList selectRegisterInfoDo(String doctor) {
+		ArrayList list=new ArrayList();
+		String sql = "select *  from RegisterInfo where Doctor='"+doctor+"'";
+		ResultSet rs = Dao.executeQuery(sql);
+		try {
+			while (rs.next()) {
+				RegisterInfo registerInfo=new RegisterInfo();
+				registerInfo.setRegisterId(rs.getInt("Register_Id"));
+				registerInfo.setPatientId(rs.getString("Patient_Id"));
+				registerInfo.setDepartment(rs.getString("Department"));
+				registerInfo.setDoctor(rs.getString("Doctor"));
+				registerInfo.setTime(rs.getDate("Time"));
+				registerInfo.setIsLooked(rs.getInt("IsLooked"));
+				list.add(registerInfo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Dao.close();
+		return list;
+	}
+    
+    //按科室查询挂号信息
+    public static ArrayList selectRegisterInfoDe(String department) {
+		ArrayList list=new ArrayList();
+		String sql = "select *  from RegisterInfo where Department='"+department+"'";
+		ResultSet rs = Dao.executeQuery(sql);
+		try {
+			while (rs.next()) {
+				RegisterInfo registerInfo=new RegisterInfo();
+				registerInfo.setRegisterId(rs.getInt("Register_Id"));
+				registerInfo.setPatientId(rs.getString("Patient_Id"));
+				registerInfo.setDepartment(rs.getString("Department"));
+				registerInfo.setDoctor(rs.getString("Doctor"));
+				registerInfo.setTime(rs.getDate("Time"));
+				registerInfo.setIsLooked(rs.getInt("IsLooked"));
+				list.add(registerInfo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Dao.close();
+		return list;
+	}
     
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
