@@ -1,10 +1,12 @@
 package team.sqjj.hospital.model;
 
-public class Appoitment {
+import java.util.Date;
+
+public class Appointment {
 	private String Patient_Id;
 	private String Department;
-	private int time;// 没有数据类型为datetime
-	private int Appoitment;
+	private Date time;// 没有数据类型为datetime
+	private int Appointment;
 
 	public void setPatient_Id(String Patient_Id) {
 		this.Patient_Id = Patient_Id;
@@ -14,12 +16,12 @@ public class Appoitment {
 		this.Department = Department;
 	}
 
-	public void settime(int time) {
+	public void settime(Date time) {
 		this.time = time;
 	}
 
 	public void setAppoitment(int Appoitment) {
-		this.Appoitment = Appoitment;
+		this.Appointment = Appoitment;
 	}
 
 	public String getPatient_Id() {
@@ -30,11 +32,11 @@ public class Appoitment {
 		return Department;
 	}
 
-	public int gettime() {
+	public Date gettime() {
 		return time;
 	}
 
-	public int getAppoitment() {
-		return Appoitment;
+	public int getAppointment() {
+		return Appointment;
 	}
 }
