@@ -1,0 +1,48 @@
+package team.sqjj.hospital.DaoImpl;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
+import team.sqjj.hospital.dao.RegisterDao;
+import team.sqjj.hospital.model.Appointment;
+import team.sqjj.hospital.model.Register;
+
+public class RegisterDaoImpl implements RegisterDao{
+    private Dao dao=null;
+    public 	RegisterDaoImpl(Dao dao){
+    	this.dao=dao;
+    }
+    @Override
+    public int addRegister(Appointment a){
+    	
+    }
+    @Override
+	public int addRegister(String Patient_Id, String Department,int Doctor,Date time){
+		
+	}
+    @Override
+	public List<Register> findByDoctor(int doctor){
+		
+	}
+    @Override
+	public List<Register> findByDepartment(String department){
+		
+	}
+    @Override
+	public Register findeByID(int Registerid){
+		
+	}
+    @Override
+	public int getAmountByDoctor(String doctorid){
+		
+	}
+    @Override
+	public int getAmountByDepartment(String department){
+		
+	}
+    @Override
+	public int registerLooked(int Register_Id){
+		
+	}
+}

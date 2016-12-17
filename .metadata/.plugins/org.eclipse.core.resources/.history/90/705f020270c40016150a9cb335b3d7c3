@@ -1,0 +1,13 @@
+package team.sqjj.hospital.DaoImpl;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import team.sqjj.hospital.dao.OderDao;
+import team.sqjj.hospital.model.Doctor;
+
+public class DoctorDaoImpl implements DoctorDao{
+    private Dao dao=null;
+    public 	DoctorDaoImpl(Dao dao){
+    	this.dao=dao;
+    }

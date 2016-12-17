@@ -1,7 +1,7 @@
 package team.sqjj.hospital.dao;
 
 public interface DepartmentDao {
-public void AddDepartment(String department,String introduction);
-public void UpdateDepartment(String department,String introduction);
-public void DelDepartment(String department);
+public int addDepartment(String department,String information,int room) ;
+public int updateDepartment(String department,String information,int room);
+public int delDepartment(String department);
 }

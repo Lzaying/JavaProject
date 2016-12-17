@@ -5,8 +5,6 @@ import java.util.List;
 import team.sqjj.hospital.model.Appointment;
 
 public interface AppointmentDao {
-public List<Appointment> GetById(String PatientId);//仅仅挑选没有过时的
-
-public void DelAppointment(int appointmentid);//挂号之后可以删除这条预约记录
-
+    public List<Appointment> getById(String PatientId);//此处仅查询结果，业务层中要筛选符合当前预约时段的
+    public int delAppointment(int appointmentId);//挂号之后可以删除这条预约记录
 }

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class Dao {
 	protected static String dbClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	protected static String dbUrl = "jdbc:sqlserver://localhost:1433;"
-			+ "DatabaseName=db_library;SelectMethod=Cursor";
+			+ "DatabaseName=Hospital;SelectMethod=Cursor";
 	protected static String dbUser = "sa";
 	protected static String dbPwd = "";
 	protected static String second = null;
@@ -45,9 +45,7 @@ public class Dao {
 				new Dao();
 			return conn.createStatement().executeUpdate(sql);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			//if(e.getMessage().equals("[Microsoft][SQLServer 2000 Driver for JDBC][SQLServer]DELETE 语句与 COLUMN REFERENCE 约束 'FK_TB_BORRO_REFERENCE_TB_BOOKI' 冲突。该冲突发生于数据库 'db_library'，表 'tb_borrow', column 'bookISBN'。"))
-				
+			System.out.println(e.getMessage());			
 			return -1;
 		} finally {
 		}

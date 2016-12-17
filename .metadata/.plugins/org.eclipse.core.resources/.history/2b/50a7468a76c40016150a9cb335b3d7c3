@@ -1,0 +1,18 @@
+package team.sqjj.hospital.dao;
+
+import java.util.Date;
+import java.util.List;
+
+import team.sqjj.hospital.model.Appointment;
+import team.sqjj.hospital.model.Register;
+
+public interface RegisterDao {
+	public int addRegister(Appointment a);
+	public int addRegister(String Patient_Id, String Department,int Doctor,Date time);
+	public List<Register> findByDoctor(int doctor);
+	public List<Register> findByDepartment(String department);//还没看过的人
+	public Register findeByID(int Registerid);
+	public int getAmountByDoctor(String doctorid);
+	public int getAmountByDepartment(String department);//总的挂号量
+	public int registerLooked(int Register_Id);
+}

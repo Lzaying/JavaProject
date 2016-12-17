@@ -7,15 +7,9 @@ import team.sqjj.hospital.model.Appointment;
 import team.sqjj.hospital.model.Register;
 
 public interface RegisterDao {
-	public void AddRegister(Appointment a);
-	public void AddRegister(String Patient_Id, String Department,int Doctor,Date time);
-	public List<Register> FindByDoctor(int doctor);
-	public List<Register> FindByDepartment(String department);//还没看过的人
-
-	public Register FindeByID(int Registerid);
-	public int GetAmountByDoctor(String doctorid);
-	public int GetAmountByDepartment(String department);//总的挂号量
-	public void RegisterLooked(int Register_Id);
-
-
+	public int addRegister(String patientId, String department,String id,Date time);//这里业务层中包含两部分，一部分是有效预约了的，先查询Appointment得到相应信息，接下来在此的操作同没预约过的 id为医生id
+	public List<Register> findByDoctor(String id);//业务层算医生挂号量时用此方法对返回的List计数即可
+	public List<Register> findByDepartment(String department);//业务层算科室挂号量时用此方法对返回的List计数即可
+	public Register findeById(int registerId);
+	public int registerLooked(int registerId);
 }
