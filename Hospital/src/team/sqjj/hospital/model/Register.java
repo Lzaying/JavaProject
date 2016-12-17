@@ -1,9 +1,12 @@
 package team.sqjj.hospital.model;
 
+import java.util.Date;
+
 public class Register {
 	private String Register_Id;
 	private String Patient_Id;
 	private String Department;
+	private Date time;
 	private int Doctor;
 	private int IsLooked;// 数据类型可以使用布尔值
 
