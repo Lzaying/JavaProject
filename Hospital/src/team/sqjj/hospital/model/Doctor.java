@@ -4,7 +4,7 @@ public class Doctor {
 	private String Id;
 	private String Name;
 	private String Department;
-
+    private int room;
 	public void setId(String Id) {
 		this.Id = Id;
 	}
@@ -27,5 +27,13 @@ public class Doctor {
 
 	public String getDepartment() {
 		return Department;
+	}
+
+	public int getRoom() {
+		return room;
+	}
+
+	public void setRoom(int room) {
+		this.room = room;
 	}
 }

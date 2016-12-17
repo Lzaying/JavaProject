@@ -3,14 +3,14 @@ package team.sqjj.hospital.model;
 import java.util.Date;
 
 public class Register {
-	private String Register_Id;
+	private int Register_Id;
 	private String Patient_Id;
 	private String Department;
 	private Date time;
 	private int Doctor;
 	private int IsLooked;// 数据类型可以使用布尔值
 
-	public void setRegister_Id(String Register_Id) {
+	public void setRegister_Id(int Register_Id) {
 		this.Register_Id = Register_Id;
 	}
 
@@ -30,7 +30,7 @@ public class Register {
 		this.IsLooked = IsLooked;
 	}
 
-	public String getRegister_Id() {
+	public int getRegister_Id() {
 		return Register_Id;
 	}
 
@@ -48,6 +48,14 @@ public class Register {
 
 	public int getIsLooked() {
 		return IsLooked;
+	}
+
+	public Date getTime() {
+		return time;
+	}
+
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
 }

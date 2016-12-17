@@ -3,7 +3,7 @@ package team.sqjj.hospital.model;
 public class Drug {
 	private String Drug_Id;
 	private String Drug_Name;
-	private String Price_Sex;
+	private double Price;
 	private String Unit;
 	private int Amount;
 
@@ -15,8 +15,14 @@ public class Drug {
 		this.Drug_Name = Drug_Name;
 	}
 
-	public void setPrice_Sex(String Price_Sex) {
-		this.Price_Sex = Price_Sex;
+	
+
+	public double getPrice() {
+		return Price;
+	}
+
+	public void setPrice(double price) {
+		Price = price;
 	}
 
 	public void setUnit(String Unit) {
@@ -35,9 +41,7 @@ public class Drug {
 		return Drug_Name;
 	}
 
-	public String getPrice_Sex() {
-		return Price_Sex;
-	}
+
 
 	public String getUnit() {
 		return Unit;
