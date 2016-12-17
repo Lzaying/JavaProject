@@ -38,7 +38,7 @@ public class Dao {
 		} finally {
 		}
 	}
-	private static int executeUpdate(String sql) {
+	protected static int executeUpdate(String sql) {
 		
 		try {
 			if(conn==null)
@@ -53,7 +53,7 @@ public class Dao {
 		}
 	}
 	
-	public static void close() {
+	protected static void close() {
 		try {
 			conn.close();
 		} catch (SQLException e) {
