@@ -11,8 +11,11 @@ public interface RegisterDao {
 	public void AddRegister(String Patient_Id, String Department,int Doctor,Date time);
 	public List<Register> FindByDoctor(int doctor);
 	public List<Register> FindByDepartment(String department);//还没看过的人
+
+	public Register FindeByID(int Registerid);
+	public int GetAmountByDoctor(String doctorid);
 	public int GetAmountByDepartment(String department);//总的挂号量
-	public void RegisterLooked(String Patient_Id, String Department,int Doctor,Date time);
+	public void RegisterLooked(int Register_Id);
 
 
 }
