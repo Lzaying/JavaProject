@@ -8,8 +8,8 @@ import team.sqjj.hospital.model.Doctor;
 
 public class DoctorDaoImpl implements DoctorDao{
     private Dao dao=null;
-    public 	DoctorDaoImpl(Dao dao){
-    	this.dao=dao;
+    public 	DoctorDaoImpl(){
+    	dao=new Dao();
     }
     @Override
     public List<Doctor> getByDepartment(String department){
