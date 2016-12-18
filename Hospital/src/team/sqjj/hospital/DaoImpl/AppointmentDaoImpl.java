@@ -11,7 +11,7 @@ import team.sqjj.hospital.model.Appointment;
 
 public class AppointmentDaoImpl implements AppointmentDao{
 	private Dao dao=null;
-    public AppointmentDaoImpl(Dao dao){this.dao=dao;}    
+    public AppointmentDaoImpl(){dao=new Dao();}    
     @Override
     public List<Appointment> getById(String PatientId) {
 	    // TODO Auto-generated method stub
