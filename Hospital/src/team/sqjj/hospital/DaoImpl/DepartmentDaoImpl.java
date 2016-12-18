@@ -7,8 +7,8 @@ import team.sqjj.hospital.model.Department;
 
 public class DepartmentDaoImpl implements DepartmentDao{
     private Dao dao=null;
-    public DepartmentDaoImpl(Dao dao){
-    	this.dao=dao;
+    public DepartmentDaoImpl(){
+    	dao=new Dao();
     }
 	@Override
 	public int addDepartment(String department,String information,int room){
