@@ -9,9 +9,8 @@ import team.sqjj.hospital.model.Patient;
 
 public class DrugDaoImpl implements DrugDao{
     private Dao dao=null;
-    public 	DrugDaoImpl(Dao dao){
-    	this.dao=dao;
-    }
+    public 	DrugDaoImpl(){
+    	dao=new Dao();   }
     @Override
     public int addDrug(String drugId,String drugName,double price,String unit,int amount){
     	int i=0;
