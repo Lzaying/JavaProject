@@ -7,9 +7,11 @@ import team.sqjj.hospital.model.Patient;
 
 public class PatientDaoImpl implements PatientDao{
      private Dao dao=null;
-     public PatientDaoImpl(Dao dao){
-    	 this.dao=dao;
-      }
+     public PatientDaoImpl(){
+    	 
+        dao=new Dao();   }
+
+      
      
     @Override
     public Patient getInfoById(String patientId) {
