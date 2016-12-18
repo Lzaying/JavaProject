@@ -11,9 +11,10 @@ import team.sqjj.hospital.model.Register;
 
 public class RegisterDaoImpl implements RegisterDao{
     private Dao dao=null;
-    public 	RegisterDaoImpl(Dao dao){
-    	this.dao=dao;
-    }
+    public 	RegisterDaoImpl(){
+   dao=new Dao();   }
+
+    
     @Override
 	public int addRegister(String patientId, String department,String id,Date time){
     	int i=0;
