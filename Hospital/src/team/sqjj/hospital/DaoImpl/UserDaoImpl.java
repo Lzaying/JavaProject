@@ -9,9 +9,9 @@ import team.sqjj.hospital.model.User;
 
 public class UserDaoImpl implements UserDao{
     private Dao dao=null;
-    public 	UserDaoImpl(Dao dao){
-    	this.dao=dao;
-    }
+    public 	UserDaoImpl(){
+    	
+        dao=new Dao();   }
     @Override
     public int addUser(String id,String password,int role,String name){
     	int i=0;
