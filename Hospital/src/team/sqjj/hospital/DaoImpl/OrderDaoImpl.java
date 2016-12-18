@@ -8,8 +8,13 @@ import team.sqjj.hospital.model.Order;
 
 public class OrderDaoImpl implements OrderDao{
     private Dao dao=null;
-    public 	OrderDaoImpl(Dao dao){
-    	this.dao=dao;
+    public 	OrderDaoImpl(){
+
+
+
+13
+        dao=new Dao();   }
+
     }
     @Override
     public int addOrder(int drugId,String patientId,String id,String doctorName,String department,String drugName,int quantity,String unit,int price,String code,int isPaid){
