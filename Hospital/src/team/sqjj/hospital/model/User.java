@@ -1,40 +1,40 @@
 package team.sqjj.hospital.model;
 
 public class User {
-	private String Id;
-	private String Password;
-	private int Role;
-	private String Name;
+	private String id;
+	private String password;
+	private int role;
+	private String name;
 
 	public String getId() {
-		return Id;
+		return id;
 	}
 
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public int getRole() {
-		return Role;
+		return role;
 	}
 
-	public void setId(String Id) {
-		this.Id = Id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public void setName(String Name) {
-		this.Name = Name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setPassword(String Password) {
-		this.Password = Password;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public void setRole(int Role) {
-		this.Role = Role;
+	public void setRole(int role) {
+		this.role = role;
 	}
 }

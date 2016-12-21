@@ -58,7 +58,7 @@ public class DrugDaoImpl implements DrugDao{
 		        drug.setDrug_Id(rs.getInt("Drug_Id"));
 		        drug.setDrug_Name(rs.getString("Drug_Name"));
 		        drug.setUnit(rs.getString("Unit"));
-		        drug.setAmout(rs.getInt("Amout"));
+		        drug.setAmount(rs.getInt("Amount"));
 		        drug.setPrice(rs.getDouble("Price"));
 	        }rs.close();
         } catch (SQLException e) {

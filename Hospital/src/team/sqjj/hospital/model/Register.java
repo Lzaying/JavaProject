@@ -3,51 +3,51 @@ package team.sqjj.hospital.model;
 import java.util.Date;
 
 public class Register {
-	private int Register_Id;
-	private String Patient_Id;
-	private String Department;
+	private int register_Id;
+	private String patient_Id;
+	private String department;
 	private Date time;
-	private int Doctor;
-	private int IsLooked;// 数据类型可以使用布尔值
+	private String id;//医生账号
+	private int isLooked;// 数据类型可以使用布尔值
 
-	public void setRegister_Id(int Register_Id) {
-		this.Register_Id = Register_Id;
+	public void setRegister_Id(int register_Id) {
+		this.register_Id = register_Id;
 	}
 
-	public void setPatient_Id(String Patient_Id) {
-		this.Patient_Id = Patient_Id;
+	public void setPatient_Id(String patient_Id) {
+		this.patient_Id = patient_Id;
 	}
 
-	public void setDepartment(String Department) {
-		this.Department = Department;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
-	public void setDoctor(int Doctor) {
-		this.Doctor = Doctor;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public void setIsLooked(int IsLooked) {
-		this.IsLooked = IsLooked;
+	public void setIsLooked(int isLooked) {
+		this.isLooked = isLooked;
 	}
 
 	public int getRegister_Id() {
-		return Register_Id;
+		return register_Id;
 	}
 
 	public String getPatient_Id() {
-		return Patient_Id;
+		return patient_Id;
 	}
 
 	public String getDepartment() {
-		return Department;
+		return department;
 	}
 
-	public int getDoctor() {
-		return Doctor;
+	public String getDoctor() {
+		return id;
 	}
 
 	public int getIsLooked() {
-		return IsLooked;
+		return isLooked;
 	}
 
 	public Date getTime() {

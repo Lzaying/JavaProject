@@ -18,7 +18,7 @@ public class AppointmentDaoImpl implements AppointmentDao{
 	    Appointment appointment=null;
         String sql="select *from Appointment where Appointment_Id="+PatientId+"";
         ResultSet rs=dao.executeQuery(sql);
-        List<Appointment> list;
+        List<Appointment> list = null;
 	    try {
 	        while(rs.next()){
 		        appointment=new Appointment();

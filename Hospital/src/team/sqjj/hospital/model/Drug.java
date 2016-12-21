@@ -1,53 +1,53 @@
 package team.sqjj.hospital.model;
 
 public class Drug {
-	private String Drug_Id;
-	private String Drug_Name;
-	private double Price;
-	private String Unit;
-	private int Amount;
+	private int drug_Id;
+	private String drug_Name;
+	private double price;
+	private String unit;
+	private int amount;
 
-	public void setDrug_Id(String Drug_Id) {
-		this.Drug_Id = Drug_Id;
+	public void setDrug_Id(int drug_Id) {
+		this.drug_Id = drug_Id;
 	}
 
-	public void setDrug_Name(String Drug_Name) {
-		this.Drug_Name = Drug_Name;
+	public void setDrug_Name(String drug_Name) {
+		this.drug_Name = drug_Name;
 	}
 
 	
 
 	public double getPrice() {
-		return Price;
+		return price;
 	}
 
 	public void setPrice(double price) {
-		Price = price;
+		this.price = price;
 	}
 
-	public void setUnit(String Unit) {
-		this.Unit = Unit;
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 
-	public void setAmount(int Amount) {
-		this.Amount = Amount;
+	public void setAmount(int amount) {
+		this.amount = amount;
 	}
 
-	public String getDrug_Id() {
-		return Drug_Id;
+	public int getDrug_Id() {
+		return drug_Id;
 	}
 
 	public String getDrug_Name() {
-		return Drug_Name;
+		return drug_Name;
 	}
 
 
 
 	public String getUnit() {
-		return Unit;
+		return unit;
 	}
 
 	public int getAmount() {
-		return Amount;
+		return amount;
 	}
 }

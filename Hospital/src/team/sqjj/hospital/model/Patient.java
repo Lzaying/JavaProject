@@ -1,67 +1,67 @@
 package team.sqjj.hospital.model;
 
 public class Patient {
-	private String Patient_Id;
-	private String Patient_Name;
-	private String Patient_Sex;
-	private String Address;
-	private String Telephone;
-	private int Patient_Age;
-	private int IsMarried;
+	private String patient_Id;
+	private String patient_Name;
+	private String patient_Sex;
+	private String address;
+	private String telephone;
+	private int patient_Age;
+	private int isMarried;
 
-	public void setPatient_Id(String Patient_Id) {
-		this.Patient_Id = Patient_Id;
+	public void setPatient_Id(String patient_Id) {
+		this.patient_Id = patient_Id;
 	}
 
 	public void setPatient_Name(String Patient_Name) {
-		this.Patient_Name = Patient_Name;
+		this.patient_Name = Patient_Name;
 	}
 
-	public void setPatient_Sex(String Patient_Sex) {
-		this.Patient_Sex = Patient_Sex;
+	public void setPatient_Sex(String patient_Sex) {
+		this.patient_Sex = patient_Sex;
 	}
 
-	public void setAddress(String Address) {
-		this.Address = Address;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	public void setTelephone(String Telephone) {
-		this.Telephone = Telephone;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
-	public void setPatient_Age(int Patient_Age) {
-		this.Patient_Age = Patient_Age;
+	public void setPatient_Age(int patient_Age) {
+		this.patient_Age = patient_Age;
 	}
 
-	public void setIsMarried(int IsMarried) {
-		this.IsMarried = IsMarried;
+	public void setIsMarried(int isMarried) {
+		this.isMarried = isMarried;
 	}
 
 	public String getPatient_Id() {
-		return Patient_Id;
+		return patient_Id;
 	}
 
 	public String getPatient_Name() {
-		return Patient_Name;
+		return patient_Name;
 	}
 
 	public String getPatient_Sex() {
-		return Patient_Sex;
+		return patient_Sex;
 	}
 
 	public String getAddress() {
-		return Address;
+		return address;
 	}
 
 	public String getTelephone() {
-		return Telephone;
+		return telephone;
 	}
 
 	public int getPatient_Age() {
-		return Patient_Age;
+		return patient_Age;
 	}
 
 	public int getIsMarried() {
-		return IsMarried;
+		return isMarried;
 	}
 }

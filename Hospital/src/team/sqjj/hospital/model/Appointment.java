@@ -3,40 +3,41 @@ package team.sqjj.hospital.model;
 import java.util.Date;
 
 public class Appointment {
-	private String Patient_Id;
-	private String Department;
+	private String patient_Id;
+	private String department;
 	private Date time;// 没有数据类型为datetime
-	private int Appointment;
+	private String appointment_Id;
+	private int drug_Id;
 
-	public void setPatient_Id(String Patient_Id) {
-		this.Patient_Id = Patient_Id;
+	public void setPatient_Id(String patient_Id) {
+		this.patient_Id = patient_Id;
 	}
 
-	public void setDepartment(String Department) {
-		this.Department = Department;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
-	public void settime(Date time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 
-	public void setAppoitment(int Appoitment) {
-		this.Appointment = Appoitment;
+	public void setAppointment_Id(String appointment_Id) {
+		this.appointment_Id = appointment_Id;
 	}
 
 	public String getPatient_Id() {
-		return Patient_Id;
+		return patient_Id;
 	}
 
 	public String getDepartment() {
-		return Department;
+		return department;
 	}
 
-	public Date gettime() {
+	public Date getTime() {
 		return time;
 	}
 
-	public int getAppointment() {
-		return Appointment;
+	public String getAppointment_Id() {
+		return appointment_Id;
 	}
 }

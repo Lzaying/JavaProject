@@ -1,32 +1,32 @@
 package team.sqjj.hospital.model;
 
 public class Doctor {
-	private String Id;
-	private String Name;
-	private String Department;
+	private String id;
+	private String name;
+	private String department;
     private int room;
-	public void setId(String Id) {
-		this.Id = Id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public void setName(String Name) {
-		this.Name = Name;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setDepartment(String Department) {
-		this.Department = Department;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
 	public String getId() {
-		return Id;
+		return id;
 	}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public String getDepartment() {
-		return Department;
+		return department;
 	}
 
 	public int getRoom() {

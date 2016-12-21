@@ -1,24 +1,24 @@
 package team.sqjj.hospital.model;
 
 public class Department {
-	private String Department;
-	private String Information;
+	private String department;
+	private String information;
 	
 
-	public void setDepartment(String Department) {
-		this.Department = Department;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
-	public void setInformation(String Information) {
-		this.Information = Information;
+	public void setInformation(String information) {
+		this.information =information;
 	}
 
 	public String getDepartment() {
-		return Department;
+		return department;
 	}
 
 	public String getInformation() {
-		return Information;
+		return information;
 	}
 
 
