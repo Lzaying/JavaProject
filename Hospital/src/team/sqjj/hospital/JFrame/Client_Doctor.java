@@ -1,5 +1,20 @@
 package team.sqjj.hospital.JFrame;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
+import team.sqjj.hospital.DaoFactory.PatientDaoFactory;
+import team.sqjj.hospital.DaoFactory.RegisterDaoFactory;
+import team.sqjj.hospital.ServerSocket.ShareVariance;
+import team.sqjj.hospital.model.Patient;
+import team.sqjj.hospital.model.Register;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -22,9 +37,20 @@ import javax.swing.Action;
 public class Client_Doctor extends JFrame implements ActionListener{
 	private JTextField txtFf;
 	private JButton mkdrug;
+	private List<Register> list=new ArrayList<Register>();
 	
 	public Client_Doctor() {
 		super("医生");
+		try {
+			Socket socket = new Socket("localhost", 8888);
+			new DoctorClientThread(socket).start();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+        		
+	
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("科室：");
@@ -93,6 +119,65 @@ public class Client_Doctor extends JFrame implements ActionListener{
 
 
 
-	
+	Comparator<Register> cmp=new Comparator<Register>(){
 
-}
+		@Override
+		public int compare(Register r1, Register r2) {
+			// TODO Auto-generated method stub
+			return r1.getTime().compareTo(r2.getTime());
+		}
+		
+		
+		
+	};
+
+
+ class DoctorClientThread extends Thread {
+		// 和本线程相关的Socket
+		Socket socket = null;
+
+		public DoctorClientThread(Socket socket) {
+			this.socket = socket;
+		}
+
+		// 线程执行的操作，响应客户端的请求
+		public void run() {
+			while(true){
+			InputStream is = null;
+			InputStreamReader isr = null;
+			ObjectInputStream ois=null;
+			try {
+				is = socket.getInputStream();
+			
+			isr = new InputStreamReader(is);
+
+			ois=new ObjectInputStream(is);} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			Register register=null;
+			try {
+				register = (Register)ois.readObject();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(register!=null){
+			
+			list.add(register);
+					Collections.sort(list,cmp);
+			Iterator<Register> it=list.iterator();
+		while(it.hasNext()){
+				Register r=it.next();
+				Patient p=PatientDaoFactory.getInstance().getInfoById(r.getPatient_Id());
+				System.out.println(p.getPatient_Name());
+				
+				
+			}
+		
+			}		}
+}}}
+
