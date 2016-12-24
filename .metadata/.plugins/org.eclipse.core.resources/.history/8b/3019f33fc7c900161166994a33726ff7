@@ -10,12 +10,14 @@ public class PatientDaoImpl implements PatientDao{
      public PatientDaoImpl(){
     	 
         dao=new Dao();   }
-  
+
+      
+     
     @Override
-    public Patient getInfoById(String patient_Id) {
+    public Patient getInfoById(String patientId) {
 	    // TODO Auto-generated method stub
 	    Patient patient=null;	
-        String sql="select * from Patient where Patient_Id='"+patient_Id+"'";
+        String sql="select *from Patient where Patient_Id="+patientId+"";
         ResultSet rs=dao.executeQuery(sql);
         try {
 	        while(rs.next()){
@@ -36,18 +38,4 @@ public class PatientDaoImpl implements PatientDao{
 	       return patient;
         }
     }
-
-	@Override
-	public int addPatient(Patient p) {
-		// TODO Auto-generated method stub
-		int i=0;
-		try{
-			String sql="insert into Patient values('"+p.getPatient_Id()+"','"+p.getPatient_Name()+"',"+p.getPatient_Sex()+","+p.getPatient_Age()+","+p.getIsMarried()+",'"+p.getTelephone()+"','"+p.getAddress()+"')";
-			i=dao.executeUpdate(sql);
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-		}
-		dao.close();
-		return i;
-	}
 }

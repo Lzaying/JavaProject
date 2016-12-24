@@ -5,3 +5,4 @@
 1482547885296	Rename type 'Prescribe'
 1482550744723	Rename type 'PrescribeDaoImpl'
 1482551364706	Rename type 'PrescribeDao'
+1482577893032	Rename type 'PrescribeDaoFactory'
