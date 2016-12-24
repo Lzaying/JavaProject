@@ -19,6 +19,8 @@ import javax.swing.JRadioButtonMenuItem;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import team.sqjj.hospital.*;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class Client_Admin extends JFrame{
 	private final Action action = new SwingAction();
@@ -44,6 +46,10 @@ public class Client_Admin extends JFrame{
 		getContentPane().add(btnNewButton_4);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+			}
+		});
 		comboBox.setFont(new Font("宋体", Font.PLAIN, 15));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"增加科室", "修改科室", "删除科室"}));
 		comboBox.setToolTipText("");
@@ -83,7 +89,7 @@ public class Client_Admin extends JFrame{
 			}
 		});
 		btnNewButton.setAction(action);
-		btnNewButton.setBounds(107, 223, 93, 29);
+		btnNewButton.setBounds(247, 223, 93, 29);
 		getContentPane().add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Go");
@@ -156,6 +162,27 @@ public class Client_Admin extends JFrame{
 		this.setSize(575,335);
 		this.setVisible(true);;
 		this.setLocation(690, 500);
+		
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnNewMenu = new JMenu("New menu");
+		menuBar.add(mnNewMenu);
+		
+		JButton btnNewButton_2 = new JButton("New button");
+		mnNewMenu.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("New button");
+		mnNewMenu.add(btnNewButton_3);
+		
+		JButton btnNewButton_5 = new JButton("New button");
+		mnNewMenu.add(btnNewButton_5);
+		
+		JMenu mnNewMenu_1 = new JMenu("New menu");
+		menuBar.add(mnNewMenu_1);
+		
+		JMenu mnNewMenu_2 = new JMenu("New menu");
+		menuBar.add(mnNewMenu_2);
 	}
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
