@@ -6,7 +6,18 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.List;
+
 import javax.swing.SwingConstants;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import team.sqjj.hospital.DaoFactory.PatientDaoFactory;
+import team.sqjj.hospital.Util.AutoCompleteComponet;
+import team.sqjj.hospital.model.Doctor;
+import team.sqjj.hospital.model.Patient;
+import team.sqjj.hospital.model.Prescription;
+import team.sqjj.hospital.model.Register;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
@@ -16,15 +27,24 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.net.Socket;
+import java.util.Iterator;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
 public class Window_Prescribe extends JFrame{
 	private JTextField textField;
 	private JTextField textField_1;
-	public Window_Prescribe() {
+	private Prescription prescription;
+	public Window_Prescribe() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 		super("开药");
 		
-		
-		getContentPane().setLayout(null);
+getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(25, 186, 356, 160);
@@ -35,33 +55,23 @@ public class Window_Prescribe extends JFrame{
 		textPane.setBounds(0, 0, 346, 160);
 		panel.add(textPane);
 		
-		JLabel lblNewLabel = new JLabel("\u836F\u54C1\u7B80\u7801");
-		lblNewLabel.setBounds(25, 130, 48, 15);
-		getContentPane().add(lblNewLabel);
-		
 		JLabel label = new JLabel("\u836F\u540D");
-		label.setBounds(109, 130, 29, 15);
+		label.setBounds(66, 130, 29, 15);
 		getContentPane().add(label);
 		
 		JLabel lblNewLabel_1 = new JLabel("\u6570\u91CF");
 		lblNewLabel_1.setBounds(163, 130, 35, 15);
 		getContentPane().add(lblNewLabel_1);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(25, 155, 55, 21);
-		getContentPane().add(comboBox);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(90, 155, 63, 21);
-		getContentPane().add(comboBox_1);
-		
 		JComboBox comboBox_2 = new JComboBox();		
+		comboBox_2.setEditable(true);
 		comboBox_2.setBounds(163, 155, 29, 21);
 		getContentPane().add(comboBox_2);
-		
 		JButton btnNewButton = new JButton("\u6DFB\u52A0");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				textPane.setText(t);
 			}
 		});
 		btnNewButton.setBounds(288, 153, 93, 23);
@@ -92,26 +102,93 @@ public class Window_Prescribe extends JFrame{
 		JButton btnNewButton_1 = new JButton("\u91CD\u7F6E");	
 		btnNewButton_1.setBounds(381, 200, 93, 23);
 		getContentPane().add(btnNewButton_1);
-		
+		btnNewButton_1.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				textPane.setText("");
+			}
+			
+			
+			
+		});
 		JButton btnNewButton_2 = new JButton("\u786E\u5B9A");
 		btnNewButton_2.setBounds(381, 244, 93, 23);
 		getContentPane().add(btnNewButton_2);
-		
+		btnNewButton_2.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				list.remove(0);
+				register=list.get(0);
+				patient=PatientDaoFactory.getInstance().getInfoById(register.getPatient_Id());
+				lblNewLabel_2.setText(patient.getPatient_Name());
+				String patientlist ="";
+				Iterator<Register> it=list.iterator();
+				while(it.hasNext()){
+					Register register=it.next();
+					Patient patient=PatientDaoFactory.getInstance().getInfoById(register.getPatient_Id());
+					patientlist+=patient.getPatient_Name();
+					patientlist+='\n';
+					
+				} 
+				patients_list.setText(patientlist);
+				
+				
+				try {
+				
+				OutputStream os=socket.getOutputStream();
+				ObjectOutputStream oos=new ObjectOutputStream(os);
+				oos.writeObject(prescription);
+				
+					oos.flush();
+				
+				socket.shutdownOutput();//关闭输出流
+				os.close();
+			    oos.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				dispose();
+			}
+			
+			
+			
+			
+		});
 		JButton btnNewButton_3 = new JButton("\u9000\u51FA");
 		btnNewButton_3.setBounds(381, 291, 93, 23);
 		getContentPane().add(btnNewButton_3);
-		
+		btnNewButton_3.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				dispose();
+			}
+			
+			
+			
+		});
 		textField = new JTextField();
 		textField.setEditable(false);
 		textField.setBounds(109, 46, 99, 21);
 		getContentPane().add(textField);
 		textField.setColumns(10);
-		
+		textField.setText(patient.getPatient_Name());
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
 		textField_1.setBounds(109, 71, 99, 21);
 		getContentPane().add(textField_1);
 		textField_1.setColumns(10);
+		textField_1.setText(doctor.getName());
+		JTextField textField_2 = AutoCompleteComponet.create();
+		textField_2.setBounds(49, 155, 66, 21);
+		getContentPane().add(textField_2);
+		textField_2.setColumns(10);
 		
 		
 		this.setVisible(true);
@@ -119,3 +196,4 @@ public class Window_Prescribe extends JFrame{
 		this.setLocation(900, 100);
 	}
 }
+ 

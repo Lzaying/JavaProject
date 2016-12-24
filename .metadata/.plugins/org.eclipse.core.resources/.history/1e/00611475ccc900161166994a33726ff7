@@ -14,7 +14,7 @@ public class PrescriptionDaoImpl implements PrescriptionDao{
     public int addPrescription(Prescription prescription){
     	int i=0;
 		try{
-			String sql="insert into Prescription values("+prescription.getPrescription_Id()+",'"+prescription.getPatient_Id()+"','"+prescription.getDoctor_Id()+"',"+prescription.getTotalPrice()+","+prescription.getIsPaid()+")";
+			String sql="insert into Prescription values("+prescription.getDrug_Id()+",'"+prescription.getPatient_Id()+"','"+prescription.getDoctor_Id()+"',"+prescription.getTotalPrice()+","+prescription.getIsPaid()+")";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -83,9 +83,4 @@ public class PrescriptionDaoImpl implements PrescriptionDao{
 	        return list;
 	        }
     }
-	@Override
-	public int payPrescription(int prescription_Id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }
