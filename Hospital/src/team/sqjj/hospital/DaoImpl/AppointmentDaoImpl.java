@@ -22,10 +22,10 @@ public class AppointmentDaoImpl implements AppointmentDao{
 	    try {
 	        while(rs.next()){
 		        appointment=new Appointment();
-		        appointment.setAppointment_Id(rs.getString("Appointment_Id"));
+		        appointment.setAppointment_Id(rs.getInt("Appointment_Id"));
 		        appointment.setPatient_Id(rs.getString("Patient_Id"));
 		        appointment.setTime(rs.getDate("Time"));
-		        appointment.setDepartment(rs.getString("Department"));
+		        appointment.setDoctor_Id(rs.getString("doctor_Id"));
 		        list.add(appointment);
 	        }rs.close();
         } catch (SQLException e) {

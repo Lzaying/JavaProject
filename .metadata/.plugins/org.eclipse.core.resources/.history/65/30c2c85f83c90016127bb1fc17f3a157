@@ -1,0 +1,30 @@
+package team.sqjj.hospital.model;
+
+public class Department {
+	private int department_Id;
+	private String department;
+	private String information;
+	private int room;
+	
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public void setInformation(String information) {
+		this.information =information;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public String getInformation() {
+		return information;
+	}
+	public int getRoom(){
+		return room;
+	}
+
+
+}

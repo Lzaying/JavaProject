@@ -1,0 +1,46 @@
+package team.sqjj.hospital.model;
+
+public class Prescription {
+private int id;
+private String patient_Id;
+private String doctor_Id;
+private int drug_Id;
+private int quantity;
+private int IsPaid;
+
+public String getPatient_Id() {
+	return patient_Id;
+}
+public void setPrescribe_Id(int id){
+	this.id=id;
+}
+public void setPatient_Id(String patient_Id) {
+	this.patient_Id = patient_Id;
+}
+public String getId() {
+	return doctor_Id;
+}
+public void setId(String doctor_Id) {
+	this.doctor_Id = doctor_Id;
+}
+
+public int getDrug_Id() {
+	return drug_Id;
+}
+public void setDrug_Id(int drug_Id) {
+	this.drug_Id = drug_Id;
+}
+public int getQuantity() {
+	return quantity;
+}
+public void setQuantity(int quantity) {
+	this.quantity = quantity;
+}
+public int getIsPaid() {
+	return IsPaid;
+}
+public void setIsPaid(int isPaid) {
+	this.IsPaid = isPaid;
+}
+}
+

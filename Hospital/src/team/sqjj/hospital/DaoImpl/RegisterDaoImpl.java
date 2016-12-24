@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import team.sqjj.hospital.dao.RegisterDao;
 import team.sqjj.hospital.model.Appointment;
-import team.sqjj.hospital.model.Prescribe;
+import team.sqjj.hospital.model.Prescription;
 import team.sqjj.hospital.model.Register;
 
 public class RegisterDaoImpl implements RegisterDao{

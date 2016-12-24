@@ -2,3 +2,6 @@
 1482545211832	Rename type 'OrderDaoFactory'
 1482545266570	Rename type 'OrderDao'
 1482545327042	Rename compilation unit 'OrderDaoImpl.java'
+1482547885296	Rename type 'Prescribe'
+1482550744723	Rename type 'PrescribeDaoImpl'
+1482551364706	Rename type 'PrescribeDao'

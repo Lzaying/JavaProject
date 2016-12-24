@@ -5,9 +5,8 @@ import java.util.Date;
 public class Register {
 	private int register_Id;
 	private String patient_Id;
-	private String department;
 	private Date time;
-	private String id;//医生账号
+	private String doctor_Id;//医生账号
 	private int isLooked;// 数据类型可以使用布尔值
 
 	public void setRegister_Id(int register_Id) {
@@ -18,12 +17,8 @@ public class Register {
 		this.patient_Id = patient_Id;
 	}
 
-	public void setDepartment(String department) {
-		this.department = department;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+	public void setId(String doctor_Id) {
+		this.doctor_Id = doctor_Id;
 	}
 
 	public void setIsLooked(int isLooked) {
@@ -38,12 +33,8 @@ public class Register {
 		return patient_Id;
 	}
 
-	public String getDepartment() {
-		return department;
-	}
-
 	public String getDoctor() {
-		return id;
+		return doctor_Id;
 	}
 
 	public int getIsLooked() {

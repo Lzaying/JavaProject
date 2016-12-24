@@ -6,6 +6,7 @@ public class Drug {
 	private double price;
 	private String unit;
 	private int amount;
+	private String code;
 
 	public void setDrug_Id(int drug_Id) {
 		this.drug_Id = drug_Id;
@@ -14,8 +15,6 @@ public class Drug {
 	public void setDrug_Name(String drug_Name) {
 		this.drug_Name = drug_Name;
 	}
-
-	
 
 	public double getPrice() {
 		return price;
@@ -41,13 +40,18 @@ public class Drug {
 		return drug_Name;
 	}
 
-
-
 	public String getUnit() {
 		return unit;
 	}
 
 	public int getAmount() {
 		return amount;
+	}
+	
+	public void setCode(String code){
+		this.code=code;
+	}
+	public String getCode(){
+		return code;
 	}
 }

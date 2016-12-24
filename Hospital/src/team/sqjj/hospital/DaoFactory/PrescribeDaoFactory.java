@@ -1,11 +1,11 @@
 package team.sqjj.hospital.DaoFactory;
 
-import team.sqjj.hospital.DaoImpl.PrescribeDaoImpl;
-import team.sqjj.hospital.dao.PrescribeDao;
+import team.sqjj.hospital.DaoImpl.PrescriptionDaoImpl;
+import team.sqjj.hospital.dao.PrescriptionDao;
 
 public class PrescribeDaoFactory {
-	public static PrescribeDao getInstance(){
-		return new PrescribeDaoImpl();
+	public static PrescriptionDao getInstance(){
+		return new PrescriptionDaoImpl();
 		
 	}
 }

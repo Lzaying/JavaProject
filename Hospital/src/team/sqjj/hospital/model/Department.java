@@ -1,10 +1,14 @@
 package team.sqjj.hospital.model;
 
 public class Department {
+	private int department_Id;
 	private String department;
 	private String information;
 	private int room;
 	
+    public int getDepartmentId(){
+    	return department_Id;
+    }
 
 	public void setDepartment(String department) {
 		this.department = department;
@@ -24,6 +28,4 @@ public class Department {
 	public int getRoom(){
 		return room;
 	}
-
-
 }
