@@ -2,7 +2,8 @@ package team.sqjj.hospital.model;
 
 public class PrescriptionItem {
 	private int  Item_id;
-	private int drug_id;
+	private int drug_id
+	
 	private int prescription_id;
 	private int quantity;
 	public int getItem_id() {
