@@ -27,7 +27,7 @@ public class Client_Register extends JFrame {
 	private JTextField textField_8;
 
 	public Client_Register() {
-		super("门诊挂号收费端");
+		super("门诊挂号收费端。。。");
 		getContentPane().setLayout(null);
 
 		JPanel panel_ = new JPanel();
