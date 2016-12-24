@@ -9,14 +9,13 @@ import team.sqjj.hospital.model.User;
 
 public class UserDaoImpl implements UserDao{
     private Dao dao=null;
-    public 	UserDaoImpl(){
-    	
+    public UserDaoImpl(){
         dao=new Dao();   }
     @Override
-    public int addUser(String id,String password,int role,String name){
+    public int addUser(User user){
     	int i=0;
 		try{
-			String sql="insert into User values('"+id+"','"+password+"',"+role+",'"+name+"')";
+			String sql="insert into User values('"+user.getId()+"','"+user.getPassword()+"',"+user.getRole()+",'"+user.getName()+"')";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -37,11 +36,11 @@ public class UserDaoImpl implements UserDao{
  		return i;
     }
     @Override
-    public int updateUser(String id,String password,int role,String name){
+    public int updateUser(User user){
     	int i=0;
   		try{
-  			String sql="delete from User where Id='"+id+"'";
- 			i=dao.executeUpdate(sql);
+  			String sql="update User set 	User_Id="+user.getId()+",User_Name='"+user.getName()+"',User_Password="+user.getPassword()+",Role="+user.getRole()+"";
+			i=dao.executeUpdate(sql);
  		}catch(Exception e){
  			e.printStackTrace();
  		}
@@ -50,11 +49,12 @@ public class UserDaoImpl implements UserDao{
     }
     @Override
     public User getById(String id){
-    	User user=new User();
+    	User user=null;
 		String sql = "select *  from User where Id='"+id+"'";
 		ResultSet rs = dao.executeQuery(sql);
 		try {
 			while (rs.next()) {
+				user=new User();
 				user.setId(rs.getString("Id"));
 				user.setPassword(rs.getString("Password"));
 				user.setRole(rs.getInt("Role"));
@@ -68,12 +68,13 @@ public class UserDaoImpl implements UserDao{
     }
     @Override
     public List<User> getByRole(int role){
-    	User user=new User();
+    	User user=null;;
 		String sql = "select *  from User where Role="+role+"";
 		ResultSet rs = dao.executeQuery(sql);
-		List<User> list = null;
+		List<User> list = new ArrayList<User>();
 		try {
 			while (rs.next()) {
+				user=new User();
 				user.setId(rs.getString("Id"));
 				user.setPassword(rs.getString("Password"));
 				user.setRole(rs.getInt("Role"));
@@ -88,12 +89,13 @@ public class UserDaoImpl implements UserDao{
     }
     @Override
     public List<User> getByName(String name){
-    	User user=new User();
+    	User user=null;
 		String sql = "select *  from User where Name='"+name+"'";
 		ResultSet rs = dao.executeQuery(sql);
-		List<User> list = null;
+		List<User> list = new ArrayList<User>();
 		try {
 			while (rs.next()) {
+				user=new User();
 				user.setId(rs.getString("Id"));
 				user.setPassword(rs.getString("Password"));
 				user.setRole(rs.getInt("Role"));

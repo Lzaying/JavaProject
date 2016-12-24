@@ -3,6 +3,7 @@ package team.sqjj.hospital.model;
 public class Department {
 	private String department;
 	private String information;
+	private int room;
 	
 
 	public void setDepartment(String department) {
@@ -19,6 +20,9 @@ public class Department {
 
 	public String getInformation() {
 		return information;
+	}
+	public int getRoom(){
+		return room;
 	}
 
 

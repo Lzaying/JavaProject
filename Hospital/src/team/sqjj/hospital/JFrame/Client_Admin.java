@@ -16,6 +16,9 @@ import javax.swing.Action;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JRadioButtonMenuItem;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import team.sqjj.hospital.*;
 
 public class Client_Admin extends JFrame{
 	private final Action action = new SwingAction();
@@ -27,7 +30,7 @@ public class Client_Admin extends JFrame{
 		JLabel lblNewLabel = new JLabel("系统管理端");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("微软雅黑", Font.PLAIN, 17));
-		lblNewLabel.setBounds(123, 10, 186, 35);
+		lblNewLabel.setBounds(181, 10, 186, 35);
 		getContentPane().add(lblNewLabel);
 		
 		JButton btnNewButton_4 = new JButton("退出");
@@ -37,38 +40,40 @@ public class Client_Admin extends JFrame{
 				dispose();
 			}
 		});
-		btnNewButton_4.setBounds(300, 199, 93, 29);
+		btnNewButton_4.setBounds(350, 223, 93, 29);
 		getContentPane().add(btnNewButton_4);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setFont(new Font("宋体", Font.PLAIN, 15));
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"增加科室", "修改科室", "删除科室"}));
 		comboBox.setToolTipText("");
-		comboBox.setBounds(64, 109, 85, 35);
+		comboBox.setBounds(10, 109, 106, 35);
 		getContentPane().add(comboBox);
 		
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setFont(new Font("宋体", Font.PLAIN, 15));
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"增加医生", "修改医生信息", "删除医生"}));
-		comboBox_1.setBounds(178, 109, 85, 35);
+		comboBox_1.setBounds(210, 109, 109, 35);
 		getContentPane().add(comboBox_1);
 		
 		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.addMouseListener(new MouseAdapter() {
+		});
 		comboBox_2.setFont(new Font("宋体", Font.PLAIN, 15));
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"增加药品", "修改药品", "删除药品"}));
-		comboBox_2.setBounds(300, 109, 85, 35);
+		comboBox_2.setBounds(409, 109, 94, 35);
 		getContentPane().add(comboBox_2);
 		
 		JLabel lblNewLabel_1 = new JLabel("科室管理");
-		lblNewLabel_1.setBounds(68, 84, 54, 15);
+		lblNewLabel_1.setBounds(10, 84, 54, 15);
 		getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("医生管理");
-		lblNewLabel_2.setBounds(183, 84, 54, 15);
+		lblNewLabel_2.setBounds(210, 84, 54, 15);
 		getContentPane().add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("药品管理");
-		lblNewLabel_3.setBounds(305, 84, 54, 15);
+		lblNewLabel_3.setBounds(409, 84, 54, 15);
 		getContentPane().add(lblNewLabel_3);
 		
 		JButton btnNewButton = new JButton("关闭系统");
@@ -78,11 +83,77 @@ public class Client_Admin extends JFrame{
 			}
 		});
 		btnNewButton.setAction(action);
-		btnNewButton.setBounds(170, 199, 93, 29);
+		btnNewButton.setBounds(107, 223, 93, 29);
 		getContentPane().add(btnNewButton);
 		
+		JButton btnNewButton_1 = new JButton("Go");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				String flag=(String) comboBox.getSelectedItem();
+				if(flag.equals("增加科室"))
+				{
+					
+				}
+				else if(flag.equals("修改科室"))
+				{
+					
+				}
+				else
+				{
+					
+				}
+			}
+		});
+		btnNewButton_1.setBounds(126, 109, 38, 35);
+		getContentPane().add(btnNewButton_1);
 		
-		this.setSize(500,300);
+		JButton btnGo = new JButton("Go");
+		btnGo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String flag=(String) comboBox_1.getSelectedItem();
+				if(flag.equals("增加医生"))
+				{
+					
+				}
+				else if(flag.equals("修改医生信息"))
+				{
+					
+				}
+				else
+				{
+					
+				}	
+			}
+		});
+		btnGo.setBounds(329, 109, 38, 35);
+		getContentPane().add(btnGo);
+		
+		JButton btnGo_1 = new JButton("Go");
+		btnGo_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+					String flag=(String) comboBox_2.getSelectedItem();
+					if(flag.equals("增加药品"))
+					{
+						
+					}
+					else if(flag.equals("修改药品"))
+					{
+						
+					}
+					else
+					{
+						
+					}
+				}
+		});
+		btnGo_1.setBounds(511, 109, 38, 35);
+		getContentPane().add(btnGo_1);
+		
+		
+		this.setSize(575,335);
 		this.setVisible(true);;
 		this.setLocation(690, 500);
 	}
@@ -96,5 +167,4 @@ public class Client_Admin extends JFrame{
 			System.exit(0);
 		}
 	}
-	
 }

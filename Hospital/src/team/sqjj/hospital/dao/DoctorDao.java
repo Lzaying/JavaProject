@@ -6,7 +6,7 @@ import team.sqjj.hospital.model.Doctor;
 
 public interface DoctorDao {
 public List<Doctor> getByDepartment(String department);
-public int addDoctor(String id,String name,String department);
-public int updateDoctor(String id,String name,String department);
 public int delDoctor(String Id);
+public int addDoctor(Doctor doctor);
+public int updateDoctor(Doctor doctor);
 }

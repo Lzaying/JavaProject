@@ -1,0 +1,9 @@
+package team.sqjj.hospital.dao;
+
+import team.sqjj.hospital.model.Department;
+
+public interface DepartmentDao {
+public int updateDepartment(String department,String information,int room);
+public int delDepartment(String department);
+int addDepartment(Department department);
+}

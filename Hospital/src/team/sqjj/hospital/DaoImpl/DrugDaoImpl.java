@@ -12,10 +12,10 @@ public class DrugDaoImpl implements DrugDao{
     public 	DrugDaoImpl(){
     	dao=new Dao();   }
     @Override
-    public int addDrug(String drugId,String drugName,double price,String unit,int amount){
+    public int addDrug(Drug drug){
     	int i=0;
 		try{
-			String sql="insert into Drug values("+drugId+",'"+drugName+"',"+price+",'"+unit+"',"+amount+")";
+			String sql="insert into Drug values("+drug.getDrug_Id()+",'"+drug.getDrug_Name()+"',"+drug.getPrice()+",'"+drug.getUnit()+"',"+drug.getAmount()+")";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -24,10 +24,10 @@ public class DrugDaoImpl implements DrugDao{
 		return i;
     }
     @Override
-    public int updateDrug(String drugId,String drugName,double price,String unit,int amount){
+    public int updateDrug(Drug drug){
     	int i=0;
 		try{
-			String sql="update Drug set Drug_Id="+drugId+",Drug_Name='"+drugName+"',Price="+price+",Unit='"+unit+"' ,Amount="+amount+" where Drug_Id="+drugId+"";
+			String sql="update Drug set Drug_Id="+drug.getDrug_Id()+",Drug_Name='"+drug.getDrug_Name()+"',Price="+drug.getPrice()+",Unit='"+drug.getUnit()+"' ,Amount="+drug.getAmount()+" where Drug_Id="+drug.getDrug_Id()+"";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());

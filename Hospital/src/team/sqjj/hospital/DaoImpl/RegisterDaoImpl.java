@@ -2,11 +2,12 @@ package team.sqjj.hospital.DaoImpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import team.sqjj.hospital.dao.RegisterDao;
 import team.sqjj.hospital.model.Appointment;
-import team.sqjj.hospital.model.Order;
+import team.sqjj.hospital.model.Prescribe;
 import team.sqjj.hospital.model.Register;
 
 public class RegisterDaoImpl implements RegisterDao{
@@ -19,11 +20,10 @@ public class RegisterDaoImpl implements RegisterDao{
 	public int addRegister(Register register){
     	String patientId=register.getPatient_Id();
     	String department=register.getDepartment();
-    	
     	Date time=register.getTime();
     	int i=0;
 		try{
-			String sql="insert into Register values('"+patientId+"','"+department+"','"+id+"',"+time+")";
+			String sql="insert into Register values('"+patientId+"','"+department+"','"+register.getDoctor()+"',"+time+")";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -36,9 +36,10 @@ public class RegisterDaoImpl implements RegisterDao{
     	Register register=null;
         String sql="select *from Register where Id='"+id+"'";
         ResultSet rs=dao.executeQuery(sql);
-        List<Register> list = null;
+        List<Register> list = new ArrayList<Register>();
 	    try {
 	        while(rs.next()){
+	        	register=new Register();
 	        	register.setRegister_Id(rs.getInt("Register_Id"));
 	        	register.setPatient_Id(rs.getString("Patient_Id"));
 	        	register.setDepartment(rs.getString("Department"));
@@ -60,9 +61,10 @@ public class RegisterDaoImpl implements RegisterDao{
     	Register register=null;
         String sql="select *from Register where Department='"+department+"'";
         ResultSet rs=dao.executeQuery(sql);
-        List<Register> list = null;
+        List<Register> list = new ArrayList<Register>();
 	    try {
 	        while(rs.next()){
+	        	register=new Register();
 	        	register.setRegister_Id(rs.getInt("Register_Id"));
 	        	register.setPatient_Id(rs.getString("Patient_Id"));
 	        	register.setDepartment(rs.getString("Department"));
@@ -86,6 +88,7 @@ public class RegisterDaoImpl implements RegisterDao{
         ResultSet rs=dao.executeQuery(sql);
 	    try {
 	        while(rs.next()){
+	        	register=new Register();
 	        	register.setRegister_Id(rs.getInt("Register_Id"));
 	        	register.setPatient_Id(rs.getString("Patient_Id"));
 	        	register.setDepartment(rs.getString("Department"));

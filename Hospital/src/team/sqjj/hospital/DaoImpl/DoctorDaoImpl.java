@@ -2,6 +2,7 @@ package team.sqjj.hospital.DaoImpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import team.sqjj.hospital.dao.DoctorDao;
 import team.sqjj.hospital.model.Doctor;
@@ -16,7 +17,7 @@ public class DoctorDaoImpl implements DoctorDao{
     	Doctor doctor=null;
         String sql="select *from Doctor where Department="+department+"";
         ResultSet rs=dao.executeQuery(sql);
-        List<Doctor> list = null;
+        List<Doctor> list = new ArrayList<Doctor>();
 	    try {
 	        while(rs.next()){
 		        doctor=new Doctor();
@@ -34,10 +35,10 @@ public class DoctorDaoImpl implements DoctorDao{
 	        }
     }
     @Override
-    public int addDoctor(String id,String name,String department){
+    public int addDoctor(Doctor doctor){
     	int i=0;
 		try{
-			String sql="insert into Doctor values('"+id+"','"+name+"','"+department+"')";
+			String sql="insert into Doctor values('"+doctor.getId()+"','"+doctor.getName()+"','"+doctor.getDepartment()+"')";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -46,10 +47,10 @@ public class DoctorDaoImpl implements DoctorDao{
 		return i;
     }
     @Override
-    public int updateDoctor(String id,String name,String department){
+    public int updateDoctor(Doctor doctor){
     	int i=0;
 		try{
-			String sql="update Doctor set Id='"+id+"',Name='"+name+"',Department='"+department+"'";
+			String sql="update Doctor set Id='"+doctor.getId()+"',Name='"+doctor.getName()+"',Department='"+doctor.getDepartment()+"'";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());

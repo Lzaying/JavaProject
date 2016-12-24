@@ -11,10 +11,10 @@ public class DepartmentDaoImpl implements DepartmentDao{
     	dao=new Dao();
     }
 	@Override
-	public int addDepartment(String department,String information,int room){
+	public int addDepartment(Department department){
 		int i=0;
 		try{
-			String sql="insert into Department values('"+department+"','"+information+"',"+room+")";
+			String sql="insert into Department values('"+department.getDepartment()+"','"+department.getInformation()+"',"+department.getRoom()+")";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -23,10 +23,10 @@ public class DepartmentDaoImpl implements DepartmentDao{
 		return i;
 	}
 	@Override
-	public int updateDepartment(String department,String information,int room){
+	public int updateDepartment(Department department){
 		int i=0;
 		try{
-			String sql="update Department set Department='"+department+"',Information='"+information+"',Room="+room+" where Room="+room+"";
+			String sql="update Department set Department='"+department.getDepartment()+"',Information='"+department.getInformation()+"',Room="+department.getRoom()+" where Room="+department.getRoom()+"";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
