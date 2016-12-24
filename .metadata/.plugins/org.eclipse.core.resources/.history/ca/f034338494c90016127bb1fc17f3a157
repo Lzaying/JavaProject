@@ -13,10 +13,6 @@ public class Appointment {
 		this.patient_Id = patient_Id;
 	}
 
-	public String getDoctor_Id() {
-		return doctor_Id;
-	}
-
 	public void setTime(Date time) {
 		this.time = time;
 	}

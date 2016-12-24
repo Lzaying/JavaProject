@@ -8,12 +8,7 @@ public class Doctor {
 	public void setId(String doctor_Id) {
 		this.doctor_Id = doctor_Id;
 	}
-	public String getDoctor_Id() {
-		return doctor_Id;
-	}
-	public void setDoctor_Id(String doctor_Id) {
-		this.doctor_Id = doctor_Id;
-	}
+
 	public void setName(String name) {
 		this.name = name;
 	}

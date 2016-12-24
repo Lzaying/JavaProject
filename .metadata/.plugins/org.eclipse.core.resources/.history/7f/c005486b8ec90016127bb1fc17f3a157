@@ -33,7 +33,7 @@ public class Register {
 		return patient_Id;
 	}
 
-	public String getDoctor_Id() {
+	public String getDoctor() {
 		return doctor_Id;
 	}
 

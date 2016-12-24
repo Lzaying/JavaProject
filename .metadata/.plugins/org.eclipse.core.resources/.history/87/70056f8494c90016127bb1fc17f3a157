@@ -4,5 +4,4 @@ import team.sqjj.hospital.model.Patient;
 
 public interface PatientDao {
 	 public Patient getInfoById(String PatientId);
-	 public int addPatient(Patient p);
 }

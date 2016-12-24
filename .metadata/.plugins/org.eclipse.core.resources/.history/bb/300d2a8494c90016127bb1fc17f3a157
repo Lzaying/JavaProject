@@ -14,18 +14,6 @@ public class Department {
 		this.department = department;
 	}
 
-	public int getDepartment_Id() {
-		return department_Id;
-	}
-
-	public void setDepartment_Id(int department_Id) {
-		this.department_Id = department_Id;
-	}
-
-	public void setRoom(int room) {
-		this.room = room;
-	}
-
 	public void setInformation(String information) {
 		this.information =information;
 	}

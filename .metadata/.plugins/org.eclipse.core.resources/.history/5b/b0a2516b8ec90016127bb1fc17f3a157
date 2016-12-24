@@ -19,10 +19,11 @@ public class RegisterDaoImpl implements RegisterDao{
     @Override
 	public int addRegister(Register register){
     	String patientId=register.getPatient_Id();
+    	String department=register.getDepartment();
     	Date time=register.getTime();
     	int i=0;
 		try{
-			String sql="insert into Register values('"+patientId+"','"+register.getDoctor_Id()+"',"+time+")";
+			String sql="insert into Register values('"+patientId+"','"+department+"','"+register.getDoctor()+"',"+time+")";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
