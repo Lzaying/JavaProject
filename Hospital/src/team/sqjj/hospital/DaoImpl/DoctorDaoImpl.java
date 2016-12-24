@@ -13,17 +13,17 @@ public class DoctorDaoImpl implements DoctorDao{
     	dao=new Dao();
     }
     @Override
-    public List<Doctor> getByDepartment(String department){
+    public List<Doctor> getByDepartment(int department_Id){
     	Doctor doctor=null;
-        String sql="select *from Doctor where Department="+department+"";
+        String sql="select * from Doctor where Department_Id="+department_Id+"";
         ResultSet rs=dao.executeQuery(sql);
         List<Doctor> list = new ArrayList<Doctor>();
 	    try {
 	        while(rs.next()){
 		        doctor=new Doctor();
-		        doctor.setId(rs.getString("Id"));
+		        doctor.setDoctor_Id(rs.getString("Doctor_Id"));
 		        doctor.setName(rs.getString("Name"));
-		        doctor.setDepartment(rs.getString("Department"));
+		        doctor.setDepartment_Id(rs.getInt("Department_Id"));
 		        list.add(doctor);
 	        }rs.close();
         } catch (SQLException e) {
@@ -38,7 +38,7 @@ public class DoctorDaoImpl implements DoctorDao{
     public int addDoctor(Doctor doctor){
     	int i=0;
 		try{
-			String sql="insert into Doctor values('"+doctor.getId()+"','"+doctor.getName()+"','"+doctor.getDepartment()+"')";
+			String sql="insert into Doctor values('"+doctor.getDoctor_Id()+"','"+doctor.getName()+"',"+doctor.getDepartment_Id()+")";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -50,7 +50,7 @@ public class DoctorDaoImpl implements DoctorDao{
     public int updateDoctor(Doctor doctor){
     	int i=0;
 		try{
-			String sql="update Doctor set Id='"+doctor.getId()+"',Name='"+doctor.getName()+"',Department='"+doctor.getDepartment()+"'";
+			String sql="update Doctor set Doctor_Id='"+doctor.getDoctor_Id()+"',Name='"+doctor.getName()+"',Department_Id="+doctor.getDepartment_Id()+"";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -59,10 +59,10 @@ public class DoctorDaoImpl implements DoctorDao{
 		return i;
     }
     @Override
-    public int delDoctor(String id){
+    public int delDoctor(String Doctor_Id){
     	int i=0;
   		try{
-  			String sql="delete from doctor where Id='"+id+"'";
+  			String sql="delete from doctor where Doctor_Id='"+Doctor_Id+"'";
  			i=dao.executeUpdate(sql);
  		}catch(Exception e){
  			e.printStackTrace();

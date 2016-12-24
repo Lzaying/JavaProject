@@ -3,7 +3,7 @@ package team.sqjj.hospital.model;
 public class Doctor {
 	private String doctor_Id;
 	private String name;
-	private String department;
+	private int department_Id;
 	
 	public void setId(String doctor_Id) {
 		this.doctor_Id = doctor_Id;
@@ -18,8 +18,8 @@ public class Doctor {
 		this.name = name;
 	}
 
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setDepartment_Id(int department_Id) {
+		this.department_Id= department_Id;
 	}
 
 	public String getId() {
@@ -30,7 +30,7 @@ public class Doctor {
 		return name;
 	}
 
-	public String getDepartment() {
-		return department;
+	public int getDepartment_Id() {
+		return department_Id;
 	}
 }

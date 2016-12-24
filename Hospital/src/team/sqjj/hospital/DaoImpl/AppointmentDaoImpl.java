@@ -49,4 +49,16 @@ public class AppointmentDaoImpl implements AppointmentDao{
 		    dao.close();
 		    return i;
     }
+	@Override
+	public int addAppointment(Appointment a) {
+		int i=0;
+		try{
+			String sql="insert into Appointment values('"+a.getPatient_Id()+"','"+a.getTime()+"','"+a.getDoctor_Id()+"')";
+			i=dao.executeUpdate(sql);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		dao.close();
+		return i;
+	}
 }

@@ -5,7 +5,6 @@ import team.sqjj.hospital.dao.DepartmentDao;
 
 public class DepartmentDaoFactory {
 	public static DepartmentDao getInstance(){
-		return new DepartmentDaoImpl();
-		
+		return new DepartmentDaoImpl();		
 	}
 }

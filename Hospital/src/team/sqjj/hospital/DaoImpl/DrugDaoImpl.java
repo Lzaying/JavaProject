@@ -15,7 +15,7 @@ public class DrugDaoImpl implements DrugDao{
     public int addDrug(Drug drug){
     	int i=0;
 		try{
-			String sql="insert into Drug values("+drug.getDrug_Id()+",'"+drug.getDrug_Name()+"',"+drug.getPrice()+",'"+drug.getUnit()+"',"+drug.getAmount()+")";
+			String sql="insert into Drug values('"+drug.getDrug_Name()+"',"+drug.getPrice()+",'"+drug.getUnit()+"',"+drug.getAmount()+"'"+drug.getCode()+"')";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -36,10 +36,10 @@ public class DrugDaoImpl implements DrugDao{
 		return i;
     }
     @Override
-    public int delDrug(String drugId){
+    public int delDrug(int drug_Id){
     	int i=0;
   		try{
-  			String sql="delete from Drug where Drug_Id="+drugId+"";
+  			String sql="delete from Drug where Drug_Id="+drug_Id+"";
  			i=dao.executeUpdate(sql);
  		}catch(Exception e){
  			e.printStackTrace();
@@ -48,9 +48,9 @@ public class DrugDaoImpl implements DrugDao{
  		return i;
     }
     @Override
-    public Drug findByID(String drugId){
+    public Drug findByID(int  drug_Id){
     	Drug drug=null;	
-        String sql="select *from Drug where Drug_Id="+drugId+"";
+        String sql="select * from Drug where Drug_Id="+drug_Id+"";
         ResultSet rs=dao.executeQuery(sql);
         try {
 	        while(rs.next()){

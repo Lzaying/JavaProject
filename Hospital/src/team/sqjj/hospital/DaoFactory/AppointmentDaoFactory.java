@@ -5,7 +5,6 @@ import team.sqjj.hospital.dao.AppointmentDao;
 
 public class AppointmentDaoFactory {
 	public static AppointmentDao getInstance(){
-		return new AppointmentDaoImpl();
-		
+		return new AppointmentDaoImpl();		
 	}
 }
