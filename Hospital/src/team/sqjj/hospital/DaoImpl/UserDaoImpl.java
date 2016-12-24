@@ -88,11 +88,19 @@ public class UserDaoImpl implements UserDao{
 		return list;
     }
     @Override
+<<<<<<< Updated upstream
     public List<User> getByName(String name){
     	User user=null;
 		String sql = "select *  from User where Name='"+name+"'";
 		ResultSet rs = dao.executeQuery(sql);
 		List<User> list = new ArrayList<User>();
+=======
+    public User getByName(String name){
+    	User user=null;//ÐÞ¸Ä
+		String sql = "select *  from User where Name='"+name+"'";
+		ResultSet rs = dao.executeQuery(sql);
+		
+>>>>>>> Stashed changes
 		try {
 			while (rs.next()) {
 				user=new User();
@@ -100,12 +108,12 @@ public class UserDaoImpl implements UserDao{
 				user.setPassword(rs.getString("Password"));
 				user.setRole(rs.getInt("Role"));
 				user.setName(rs.getString("Name"));
-				list.add(user);
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		Dao.close();
-		return list;
+		return user;
     }
 }

@@ -1,13 +1,19 @@
 package team.sqjj.hospital.model;
 
+
 import java.sql.Time;
+
+import java.io.Serializable;
+
 import java.util.Date;
 
-public class Appointment {
+public class Appointment implements Serializable{
 	private String patient_Id;
 	private String doctor_Id;
 	private Date time;// 没有数据类型为datetime
+
 	private int appointment_Id;
+
 
 	public void setPatient_Id(String patient_Id) {
 		this.patient_Id = patient_Id;

@@ -5,6 +5,12 @@ import java.util.List;
 public class Prescription {
 private int prescription_Id;
 private String patient_Id;
+public int getPrescription_Id() {
+	return prescription_Id;
+}
+public void setTotalPrice(double totalPrice) {
+	this.totalPrice = totalPrice;
+}
 private String doctor_Id;
 private List<PrescriptionItem> prescriptionitem;
 public List<PrescriptionItem> getPrescriptionitem() {

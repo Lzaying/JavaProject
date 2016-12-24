@@ -12,6 +12,10 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import team.sqjj.hospital.DaoFactory.UserDaoFactory;
+import team.sqjj.hospital.model.User;
+
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import java.awt.event.KeyAdapter;
@@ -107,38 +111,20 @@ public class Login extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==doc){
-		
-				//1.创建客户端Socket，指定服务器地址和端口
-				Socket socket;
-				try {
-					socket = new Socket("localhost", 8888);
+		String username=textField.getText();
+		String password=textField_1.getText();
+			User user=	UserDaoFactory.getInstance().getById(username);
+			if(user!=null&&user.getPassword()==password){
+				if(user.getRole()==0){new Client_Admin();}
+				else if(user.getRole()==1){new Client_Register();}
+				else if(user.getRole()==2){new Client_Doctor(username);}
+				else if(user.getRole()==3){new Client_Dean();}
+				else if(user.getRole()==4){new Client_DrugStore();}
+			}
+			else{
 				
-				//2.获取输出流，向服务器端发送信息
-				OutputStream os=socket.getOutputStream();//字节输出流
-				PrintWriter pw=new PrintWriter(os);//将输出流包装为打印流
-				pw.write("用户名：alice;密码：789");
-				pw.flush();
-				socket.shutdownOutput();//关闭输出流
-				InputStream is=socket.getInputStream();
-				BufferedReader br=new BufferedReader(new InputStreamReader(is));
-				String info=null;
-				while((info=br.readLine())!=null){
-					System.out.println("我是客户端，服务器说："+info);
-				}
-			is.close();
-			br.close();
-				pw.close();
-				os.close();
-				socket.close();
-				} catch (UnknownHostException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-		}
-	}
+			}
+	}}
 	private class SwingAction extends AbstractAction {
 		public SwingAction() {
 			putValue(NAME, "退出");//逻辑问题
