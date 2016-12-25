@@ -13,10 +13,10 @@ public class AppointmentDaoImpl implements AppointmentDao{
 	private Dao dao=null;
     public AppointmentDaoImpl(){dao=new Dao();}    
     @Override
-    public List<Appointment> getById(String PatientId) {
+    public List<Appointment> getById(String patient_Id) {
 	    // TODO Auto-generated method stub
 	    Appointment appointment=null;
-        String sql="select *from Appointment where Appointment_Id="+PatientId+"";
+        String sql="select *from Appointment where Patient_Id="+patient_Id+"";
         ResultSet rs=dao.executeQuery(sql);
         List<Appointment> list = new ArrayList<Appointment>();
 	    try {
@@ -25,7 +25,7 @@ public class AppointmentDaoImpl implements AppointmentDao{
 		        appointment.setAppointment_Id(rs.getInt("Appointment_Id"));
 		        appointment.setPatient_Id(rs.getString("Patient_Id"));
 		        appointment.setTime(rs.getDate("Time"));
-		        appointment.setDoctor_Id(rs.getString("doctor_Id"));
+		        appointment.setDoctor_Id(rs.getString("Doctor_Id"));
 		        list.add(appointment);
 	        }rs.close();
         } catch (SQLException e) {
@@ -37,11 +37,11 @@ public class AppointmentDaoImpl implements AppointmentDao{
 	        }
     }
     @Override
-    public int delAppointment(int appointmentId) {
+    public int delAppointment(int appointment_Id) {
 	    // TODO Auto-generated method stub
 	    int i=0;
 		    try{
-			    String sql="delete from Appointment where Appointment_Id="+appointmentId+"";
+			    String sql="delete from Appointment where Appointment_Id="+appointment_Id+"";
 			    i=dao.executeUpdate(sql);
 		    }catch(Exception e){
 			    e.printStackTrace();

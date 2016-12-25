@@ -10,9 +10,4 @@ public Drug findByID(int drug_Id);
 public int addDrug(Drug drug);
 public int updateDrug(Drug drug);
 public List<Drug> getByname(String name);
-
-
-public List<Drug> getByname(String name);
-
-
 }

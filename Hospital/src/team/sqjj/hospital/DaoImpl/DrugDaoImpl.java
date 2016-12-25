@@ -2,8 +2,10 @@ package team.sqjj.hospital.DaoImpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import team.sqjj.hospital.dao.DrugDao;
+import team.sqjj.hospital.model.Doctor;
 import team.sqjj.hospital.model.Drug;
 import team.sqjj.hospital.model.Patient;
 
@@ -69,4 +71,29 @@ public class DrugDaoImpl implements DrugDao{
 	       return drug;
         }
     }
+	@Override
+	public List<Drug> getByname(String name) {
+		// TODO Auto-generated method stub
+		Drug drug=null;
+        String sql="select * from Drug where Drug_Name="+name+"";
+        ResultSet rs=dao.executeQuery(sql);
+        List<Drug> list = new ArrayList<Drug>();
+	    try {
+	        while(rs.next()){
+		        drug=new Drug();
+		        drug.setDrug_Id(rs.getInt("Drug_Id"));
+		        drug.setDrug_Name(rs.getString("Drug_Name"));
+		        drug.setUnit(rs.getString("Unit"));
+		        drug.setAmount(rs.getInt("Amount"));
+		        drug.setCode(rs.getString("Code"));
+		        list.add(drug);
+	        }rs.close();
+        } catch (SQLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+        }	finally{
+	        dao.close();
+	        return list;
+	        }
+	}
 }

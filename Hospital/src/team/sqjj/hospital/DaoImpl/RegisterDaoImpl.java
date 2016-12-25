@@ -18,11 +18,11 @@ public class RegisterDaoImpl implements RegisterDao{
     
     @Override
 	public int addRegister(Register register){
-    	String patientId=register.getPatient_Id();
+    	String patient_Id=register.getPatient_Id();
     	Date time=register.getTime();
     	int i=0;
 		try{
-			String sql="insert into Register values('"+patientId+"','"+register.getDoctor_Id()+"',"+time+")";
+			String sql="insert into Register values('"+patient_Id+"','"+register.getDoctor_Id()+"','"+time+"',"+register.getIsLooked()+")";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -31,9 +31,9 @@ public class RegisterDaoImpl implements RegisterDao{
 		return i;
 	}
     @Override
-	public List<Register> findByDoctor(String id){
+	public List<Register> findByDoctor(String doctor_Id){
     	Register register=null;
-        String sql="select *from Register where Id='"+id+"'";
+        String sql="select *from Register where Doctor_Id='"+doctor_Id+"'";
         ResultSet rs=dao.executeQuery(sql);
         List<Register> list = new ArrayList<Register>();
 	    try {
@@ -41,8 +41,7 @@ public class RegisterDaoImpl implements RegisterDao{
 	        	register=new Register();
 	        	register.setRegister_Id(rs.getInt("Register_Id"));
 	        	register.setPatient_Id(rs.getString("Patient_Id"));
-	        	register.setDepartment(rs.getString("Department"));
-	        	register.setId(rs.getString("Id"));
+	        	register.setId(rs.getString("Doctor_Id"));
 	        	register.setTime(rs.getDate("Time"));
 	        	register.setIsLooked(rs.getInt("IsLooked"));
 				list.add(register);
@@ -58,7 +57,7 @@ public class RegisterDaoImpl implements RegisterDao{
     @Override
 	public List<Register> findByDepartment(String department){
     	Register register=null;
-        String sql="select *from Register where Department='"+department+"'";
+        String sql="select * from Register where Doctor_Id=(select Doctor_Id from Department where Department='"+department+"';)";
         ResultSet rs=dao.executeQuery(sql);
         List<Register> list = new ArrayList<Register>();
 	    try {
@@ -66,8 +65,7 @@ public class RegisterDaoImpl implements RegisterDao{
 	        	register=new Register();
 	        	register.setRegister_Id(rs.getInt("Register_Id"));
 	        	register.setPatient_Id(rs.getString("Patient_Id"));
-	        	register.setDepartment(rs.getString("Department"));
-	        	register.setId(rs.getString("Id"));
+	        	register.setId(rs.getString("Doctor_Id"));
 	        	register.setTime(rs.getDate("Time"));
 	        	register.setIsLooked(rs.getInt("IsLooked"));
 				list.add(register);
@@ -81,17 +79,16 @@ public class RegisterDaoImpl implements RegisterDao{
 	        }
 	}
     @Override
-	public Register findeById(int registerId){
+	public Register findById(int register_Id){
     	Register register=null;
-        String sql="select *from Register where Register_Id="+registerId+"";
+        String sql="select *from Register where Register_Id="+register_Id+"";
         ResultSet rs=dao.executeQuery(sql);
 	    try {
 	        while(rs.next()){
 	        	register=new Register();
 	        	register.setRegister_Id(rs.getInt("Register_Id"));
 	        	register.setPatient_Id(rs.getString("Patient_Id"));
-	        	register.setDepartment(rs.getString("Department"));
-	        	register.setId(rs.getString("Id"));
+	        	register.setId(rs.getString("Doctor_Id"));
 	        	register.setTime(rs.getDate("Time"));
 	        	register.setIsLooked(rs.getInt("IsLooked"));
 	        }rs.close();
@@ -104,11 +101,11 @@ public class RegisterDaoImpl implements RegisterDao{
 	        }
 	}
     @Override
-	public int registerLooked(int registerId){
+	public int registerLooked(int register_Id){
     	int i=0;
     	int j=1;
 		try{
-			String sql="update Register set IsLooked "+j+" where Register_Id ="+registerId+"";
+			String sql="update Register set IsLooked "+j+" where Register_Id ="+register_Id+"";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());

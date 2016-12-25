@@ -23,11 +23,11 @@ public class PrescriptionDaoImpl implements PrescriptionDao{
 		return i;
     }
     @Override
-    public int payPrescription(String prescriptionId){
+    public int payPrescription(int prescription_Id){
     	int i=0;
     	int j=1;
 		try{
-			String sql="update Prescription set IsPaid "+j+" where prescription_Id ="+prescriptionId+"";
+			String sql="update Prescription set IsPaid "+j+" where prescription_Id ="+prescription_Id+"";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -36,20 +36,20 @@ public class PrescriptionDaoImpl implements PrescriptionDao{
 		return i;
     }
     @Override
-    public List<Prescription> getByPatientID (String patientId){
-    	Prescription Prescription=null;
-        String sql="select *from Prescription where Patient_Id='"+patientId+"'";
+    public List<Prescription> getByPatientID (String patient_Id){
+    	Prescription prescription=null;
+        String sql="select *from Prescription where Patient_Id='"+patient_Id+"'";
         ResultSet rs=dao.executeQuery(sql);
         List<Prescription> list = new ArrayList<Prescription>();
 	    try {
 	        while(rs.next()){
-	        	Prescription=new Prescription();
-	        	Prescription.setPrescription_Id(rs.getInt("prescription_Id"));
-	        	Prescription.setDrug_Id(rs.getInt("Drug_Id"));
-	        	Prescription.setPatient_Id(rs.getString("Patient_Id"));
-	        	Prescription.setDoctor_Id(rs.getString("Dctor_Id"));
-	        	Prescription.setIsPaid(rs.getInt("IsPaid"));
-		        list.add(Prescription);
+	        	prescription=new Prescription();
+	        	prescription.setPrescription_Id(rs.getInt("prescription_Id"));
+	        	prescription.setTotalPrice(rs.getDouble("TotalPrice"));
+	        	prescription.setPatient_Id(rs.getString("Patient_Id"));
+	        	prescription.setDoctor_Id(rs.getString("Dctor_Id"));
+	        	prescription.setIsPaid(rs.getInt("IsPaid"));
+		        list.add(prescription);
 	        }rs.close();
         } catch (SQLException e) {
 	    // TODO Auto-generated catch block
@@ -61,19 +61,19 @@ public class PrescriptionDaoImpl implements PrescriptionDao{
     }
     @Override
     public List<Prescription> getByDoctor(String doctor_Id){
-    	Prescription Prescription=null;
-        String sql="select *from Prescription where Id='"+doctor_Id+"'";
+    	Prescription prescription=null;
+        String sql="select *from Prescription where Doctor_Id='"+doctor_Id+"'";
         ResultSet rs=dao.executeQuery(sql);
         List<Prescription> list = new ArrayList<Prescription>();
 	    try {
 	        while(rs.next()){
-	        	Prescription=new Prescription();
-	        	Prescription.setPrescription_Id(rs.getInt("prescription_Id"));
-	        	Prescription.setDrug_Id(rs.getInt("Drug_Id"));
-	        	Prescription.setPatient_Id(rs.getString("Patient_Id"));
-	        	Prescription.setDoctor_Id(rs.getString("Dctor_Id"));
-	        	Prescription.setIsPaid(rs.getInt("IsPaid"));
-		        list.add(Prescription);
+	        	prescription=new Prescription();
+	        	prescription.setPrescription_Id(rs.getInt("prescription_Id"));
+	        	prescription.setTotalPrice(rs.getDouble("TotalPrice"));
+	        	prescription.setPatient_Id(rs.getString("Patient_Id"));
+	        	prescription.setDoctor_Id(rs.getString("Dctor_Id"));
+	        	prescription.setIsPaid(rs.getInt("IsPaid"));
+		        list.add(prescription);
 	        }rs.close();
         } catch (SQLException e) {
 	    // TODO Auto-generated catch block
@@ -83,9 +83,4 @@ public class PrescriptionDaoImpl implements PrescriptionDao{
 	        return list;
 	        }
     }
-	@Override
-	public int payPrescription(int prescription_Id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }
