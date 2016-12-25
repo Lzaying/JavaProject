@@ -1,7 +1,0 @@
-package team.sqjj.hospital.dao;
-
-public interface DepartmentDao {
-public int addDepartment(String department,String introduction);
-public int updateDepartment(String department,String introduction);
-public int delDepartment(String department);
-}
