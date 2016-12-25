@@ -12,4 +12,5 @@ public interface RegisterDao {
 	public List<Register> findByDepartment(String department);//业务层算科室挂号量时用此方法对返回的List计数即可
 	public Register findById(int register_Id);
 	public int registerLooked(int register_Id);
+	public int updateIsLooked(int regiser_Id );
 }

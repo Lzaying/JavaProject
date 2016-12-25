@@ -37,11 +37,11 @@ public class AppointmentDaoImpl implements AppointmentDao{
 	        }
     }
     @Override
-    public int delAppointment(int appointment_Id) {
+    public int delAppointment(int appointmentId) {
 	    // TODO Auto-generated method stub
 	    int i=0;
 		    try{
-			    String sql="delete from Appointment where Appointment_Id="+appointment_Id+"";
+			    String sql="delete from Appointment where Appointment_Id="+appointmentId+"";
 			    i=dao.executeUpdate(sql);
 		    }catch(Exception e){
 			    e.printStackTrace();

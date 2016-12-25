@@ -101,11 +101,11 @@ public class RegisterDaoImpl implements RegisterDao{
 	        }
 	}
     @Override
-	public int registerLooked(int register_Id){
+	public int registerLooked(int registerId){
     	int i=0;
     	int j=1;
 		try{
-			String sql="update Register set IsLooked "+j+" where Register_Id ="+register_Id+"";
+			String sql="update Register set IsLooked "+j+" where Register_Id ="+registerId+"";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());

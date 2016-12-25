@@ -79,16 +79,17 @@ public class RegisterDaoImpl implements RegisterDao{
 	        }
 	}
     @Override
-	public Register findById(int register_Id){
+	public Register findeById(int registerId){
     	Register register=null;
-        String sql="select *from Register where Register_Id="+register_Id+"";
+        String sql="select *from Register where Register_Id="+registerId+"";
         ResultSet rs=dao.executeQuery(sql);
 	    try {
 	        while(rs.next()){
 	        	register=new Register();
 	        	register.setRegister_Id(rs.getInt("Register_Id"));
 	        	register.setPatient_Id(rs.getString("Patient_Id"));
-	        	register.setId(rs.getString("Doctor_Id"));
+	        	register.setDepartment(rs.getString("Department"));
+	        	register.setId(rs.getString("Id"));
 	        	register.setTime(rs.getDate("Time"));
 	        	register.setIsLooked(rs.getInt("IsLooked"));
 	        }rs.close();
@@ -101,11 +102,11 @@ public class RegisterDaoImpl implements RegisterDao{
 	        }
 	}
     @Override
-	public int registerLooked(int register_Id){
+	public int registerLooked(int registerId){
     	int i=0;
     	int j=1;
 		try{
-			String sql="update Register set IsLooked "+j+" where Register_Id ="+register_Id+"";
+			String sql="update Register set IsLooked "+j+" where Register_Id ="+registerId+"";
 			i=dao.executeUpdate(sql);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
