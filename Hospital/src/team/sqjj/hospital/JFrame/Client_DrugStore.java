@@ -5,6 +5,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -15,17 +17,30 @@ import java.awt.*;
 import javax.swing.*;
 
 import team.sqjj.hospital.DaoImpl.PrescribeDaoImpl;
+import team.sqjj.hospital.JFrame.Client_Doctor.DoctorClientThread;
+import team.sqjj.hospital.model.Patient;
 import team.sqjj.hospital.model.Prescribe;
+import team.sqjj.hospital.model.Prescription;
+import team.sqjj.hospital.model.Register;
 import team.sqjj.hospital.DaoFactory.*;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
 
 public class Client_DrugStore extends JFrame{
 	private JTable table_1,table_2,table_3;
 	private JScrollPane scrollPane;
-
+    private Socket socket;
+    private OutputStream os;
+	private PrintWriter pw;
 	
 	private Object[][] getselect(List list){
 		Object[][] s = new Object[list.size()][4];
@@ -42,6 +57,25 @@ public class Client_DrugStore extends JFrame{
 	
 	public Client_DrugStore() {
 		super("药房端");
+		try {
+			socket = new Socket("localhost", 8888);
+			os = socket.getOutputStream();// 字节输出流
+			pw = new PrintWriter(os);// 将输出流包装为打印流
+			pw.write("4");
+			pw.flush();
+			socket.shutdownOutput();// 关闭输出流
+			pw.close();
+			os.close();
+			new DoctorClientThread(socket).start();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		
+		
+		
+		
 		final JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setPreferredSize(new Dimension(0, 50));
 		getContentPane().add(tabbedPane);
@@ -163,6 +197,75 @@ public class Client_DrugStore extends JFrame{
 		setVisible(true);
 	}
 
+	class DrugStoreClientThread extends Thread {
+		// 和本线程相关的Socket
+		Socket socket = null;
+
+		public DrugStoreClientThread(Socket socket) {
+			this.socket = socket;
+		}
+
+		// 线程执行的操作，响应客户端的请求
+		public void run() {
+			while (true) {
+				InputStream is = null;
+				InputStreamReader isr = null;
+				ObjectInputStream ois = null;
+				try {
+					is = socket.getInputStream();
+
+					isr = new InputStreamReader(is);
+
+					ois = new ObjectInputStream(is);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				Prescription prescription = null;
+				try {
+					prescription = (Prescription) ois.readObject();
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (prescription != null) {
+
+					new Window_Prescription();
+				}
+			}
+		}
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	public static void main(String[] args) {
