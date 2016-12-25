@@ -40,7 +40,7 @@ public class RegisterThread extends Thread {
 					Iterator<String> keyit = set.iterator();
 					while (keyit.hasNext()) {
 						String receivekey = keyit.next();
-						if (register.getDoctor().equals(receivekey)) {
+						if (register.getDoctor_Id().equals(receivekey)) {
 							OutputStream os=ShareVariance.doctorservers.get(receivekey).getOutputStream();
 							ObjectOutputStream oos=new ObjectOutputStream(os);
 							oos.writeObject(register);
