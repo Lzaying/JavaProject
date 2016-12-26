@@ -8,4 +8,5 @@ public int delDepartment(String department);
 public int addDepartment(Department department);
 public int updateDepartment(Department department);
 public List<Department> getDepartment();
+public int dAppointmentCount(String department);
 }
