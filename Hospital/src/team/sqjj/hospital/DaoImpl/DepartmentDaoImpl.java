@@ -74,4 +74,21 @@ public class DepartmentDaoImpl implements DepartmentDao{
 	        return list;
 	        }
 	}
+	@Override
+	public int dAppointmentCount(String department) {
+		// TODO Auto-generated method stub
+		int count=0;
+		try{
+			String sql="select count(*) from Appointment where Doctor_Id=(select Doctor_Id from Doctor where Department_Id=(select Department_Id from Department where Department='"+department+"'))";
+			ResultSet rs=dao.executeQuery(sql);
+			if(rs.next())
+			{
+				count=rs.getInt(1);
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		dao.close();		
+		return count;
+	}
 }

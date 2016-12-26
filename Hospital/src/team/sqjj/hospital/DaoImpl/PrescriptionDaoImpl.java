@@ -83,4 +83,84 @@ public class PrescriptionDaoImpl implements PrescriptionDao{
 	        return list;
 	        }
     }
+	@Override
+	public double doTotalPrice(String doctor_Id) {
+		double dotp=0;
+		try{
+			String sql="select sum(TotalPrice) from Prescription where Doctor_Id='"+doctor_Id+"'";
+			ResultSet rs=dao.executeQuery(sql);
+			if(rs.next())
+			{
+				dotp=rs.getInt(1);
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		dao.close();		
+		return dotp;
+	}
+	@Override
+	public double deTotalPrice(String department) {
+		double detp=0;
+		try{
+			String sql="select sum(TotalPrice) from Prescription where Doctor_Id=(select Doctor_Id from Doctor where Department_Id=(select Department_Id from Department where Department='"+department+"'))";
+			ResultSet rs=dao.executeQuery(sql);
+			if(rs.next())
+			{
+				detp=rs.getDouble(1);
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		dao.close();		
+		return detp;
+	}
+	@Override
+	public List<Prescription> getPaid() {
+		Prescription prescription=null;
+        String sql="select *from Prescription where IsPaid=1";
+        ResultSet rs=dao.executeQuery(sql);
+        List<Prescription> list = new ArrayList<Prescription>();
+	    try {
+	        while(rs.next()){
+	        	prescription=new Prescription();
+	        	prescription.setPrescription_Id(rs.getInt("prescription_Id"));
+	        	prescription.setTotalPrice(rs.getDouble("TotalPrice"));
+	        	prescription.setPatient_Id(rs.getString("Patient_Id"));
+	        	prescription.setDoctor_Id(rs.getString("Dctor_Id"));
+	        	prescription.setIsPaid(rs.getInt("IsPaid"));
+		        list.add(prescription);
+	        }rs.close();
+        } catch (SQLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+        }	finally{
+	        dao.close();
+	        return list;
+	        }
+	}
+	@Override
+	public List<Prescription> getUnPaidr() {
+		Prescription prescription=null;
+        String sql="select *from Prescription where Patient_Id=0";
+        ResultSet rs=dao.executeQuery(sql);
+        List<Prescription> list = new ArrayList<Prescription>();
+	    try {
+	        while(rs.next()){
+	        	prescription=new Prescription();
+	        	prescription.setPrescription_Id(rs.getInt("prescription_Id"));
+	        	prescription.setTotalPrice(rs.getDouble("TotalPrice"));
+	        	prescription.setPatient_Id(rs.getString("Patient_Id"));
+	        	prescription.setDoctor_Id(rs.getString("Dctor_Id"));
+	        	prescription.setIsPaid(rs.getInt("IsPaid"));
+		        list.add(prescription);
+	        }rs.close();
+        } catch (SQLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+        }	finally{
+	        dao.close();
+	        return list;
+	        }
+	}
 }

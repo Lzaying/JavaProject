@@ -83,6 +83,32 @@ public class DrugDaoImpl implements DrugDao{
 		        drug=new Drug();
 		        drug.setDrug_Id(rs.getInt("Drug_Id"));
 		        drug.setDrug_Name(rs.getString("Drug_Name"));
+		        drug.setPrice(rs.getDouble("Price"));
+		        drug.setUnit(rs.getString("Unit"));
+		        drug.setAmount(rs.getInt("Amount"));
+		        drug.setCode(rs.getString("Code"));
+		        list.add(drug);
+	        }rs.close();
+        } catch (SQLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+        }	finally{
+	        dao.close();
+	        return list;
+	        }
+	}
+	@Override
+	public List<Drug> getAllDrug() {
+		Drug drug=null;
+        String sql="select * from Drug";
+        ResultSet rs=dao.executeQuery(sql);
+        List<Drug> list = new ArrayList<Drug>();
+	    try {
+	        while(rs.next()){
+		        drug=new Drug();
+		        drug.setDrug_Id(rs.getInt("Drug_Id"));
+		        drug.setDrug_Name(rs.getString("Drug_Name"));
+		        drug.setPrice(rs.getDouble("Price"));
 		        drug.setUnit(rs.getString("Unit"));
 		        drug.setAmount(rs.getInt("Amount"));
 		        drug.setCode(rs.getString("Code"));

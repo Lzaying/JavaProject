@@ -13,7 +13,7 @@ public class DoctorDaoImpl implements DoctorDao{
     	dao=new Dao();
     }
     @Override
-    public List<Doctor> getByDepartment(int department_Id){
+    public List<Doctor> getByDepartment_Id(int department_Id){
     	Doctor doctor=null;
         String sql="select * from Doctor where Department_Id="+department_Id+"";
         ResultSet rs=dao.executeQuery(sql);
@@ -69,5 +69,49 @@ public class DoctorDaoImpl implements DoctorDao{
  		}
  		dao.close();
  		return i;
+    }
+	@Override
+	public List<Doctor> getByDoctor_Id(String doctor_Id) {
+		Doctor doctor=null;
+        String sql="select * from Doctor where Doctor_Id='"+doctor_Id+"'";
+        ResultSet rs=dao.executeQuery(sql);
+        List<Doctor> list = new ArrayList<Doctor>();
+	    try {
+	        while(rs.next()){
+		        doctor=new Doctor();
+		        doctor.setDoctor_Id(rs.getString("Doctor_Id"));
+		        doctor.setName(rs.getString("Name"));
+		        doctor.setDepartment_Id(rs.getInt("Department_Id"));
+		        list.add(doctor);
+	        }rs.close();
+        } catch (SQLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+        }	finally{
+	        dao.close();
+	        return list;
+	        }
+	}
+	@Override
+    public List<Doctor> getByDepartment(String department){
+    	Doctor doctor=null;
+        String sql="select * from Doctor where Department='"+department+"'";
+        ResultSet rs=dao.executeQuery(sql);
+        List<Doctor> list = new ArrayList<Doctor>();
+	    try {
+	        while(rs.next()){
+		        doctor=new Doctor();
+		        doctor.setDoctor_Id(rs.getString("Doctor_Id"));
+		        doctor.setName(rs.getString("Name"));
+		        doctor.setDepartment_Id(rs.getInt("Department_Id"));
+		        list.add(doctor);
+	        }rs.close();
+        } catch (SQLException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+        }	finally{
+	        dao.close();
+	        return list;
+	        }
     }
 }
