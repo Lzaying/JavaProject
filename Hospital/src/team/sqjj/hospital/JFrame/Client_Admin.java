@@ -60,7 +60,6 @@ public class Client_Admin extends JFrame{
 	private JTextField xyjia;
 	private JTextField xydan;
 	private JTextField xyshu;
-	private JTextField xypin;
 	private JTextField sym;
 	public Client_Admin() {
 		setTitle("\u533B\u9662\u7BA1\u7406\u5BA2\u6237\u7AEF");
@@ -432,7 +431,7 @@ public class Client_Admin extends JFrame{
 		
 		zym = new JTextField();
 		zym.setColumns(10);
-		zym.setBounds(201, 16, 93, 21);
+		zym.setBounds(201, 16, 126, 21);
 		qq.add(zym);
 		
 		zyj = new JTextField();
@@ -455,49 +454,40 @@ public class Client_Admin extends JFrame{
 		panel_10.setLayout(null);
 		
 		JLabel label_18 = new JLabel("\u8BF7\u8F93\u5165\u836F\u54C1\u540D\u79F0");
-		label_18.setBounds(42, 10, 90, 32);
+		label_18.setBounds(42, 10, 135, 32);
 		panel_10.add(label_18);
 		
 		JLabel label_19 = new JLabel("\u8BF7\u8F93\u5165\u836F\u54C1\u4EF7\u683C");
-		label_19.setBounds(42, 64, 90, 32);
+		label_19.setBounds(42, 64, 148, 32);
 		panel_10.add(label_19);
 		
 		JLabel label_20 = new JLabel("\u8BF7\u8F93\u5165\u836F\u54C1\u5355\u4F4D");
-		label_20.setBounds(42, 122, 90, 32);
+		label_20.setBounds(42, 122, 148, 32);
 		panel_10.add(label_20);
 		
 		JLabel label_21 = new JLabel("\u8BF7\u8F93\u5165\u836F\u54C1\u6570\u91CF");
-		label_21.setBounds(42, 176, 90, 32);
+		label_21.setBounds(42, 176, 135, 32);
 		panel_10.add(label_21);
-		
-		JLabel label_22 = new JLabel("\u8BF7\u8F93\u5165\u836F\u54C1\u62FC\u97F3\u7801");
-		label_22.setBounds(42, 233, 110, 32);
-		panel_10.add(label_22);
 		
 		xym = new JTextField();
 		xym.setColumns(10);
-		xym.setBounds(162, 16, 66, 21);
+		xym.setBounds(200, 16, 135, 21);
 		panel_10.add(xym);
 		
 		xyjia = new JTextField();
 		xyjia.setColumns(10);
-		xyjia.setBounds(162, 70, 66, 21);
+		xyjia.setBounds(200, 70, 98, 21);
 		panel_10.add(xyjia);
 		
 		xydan = new JTextField();
 		xydan.setColumns(10);
-		xydan.setBounds(162, 128, 66, 21);
+		xydan.setBounds(200, 128, 98, 21);
 		panel_10.add(xydan);
 		
 		xyshu = new JTextField();
 		xyshu.setColumns(10);
-		xyshu.setBounds(162, 182, 66, 21);
+		xyshu.setBounds(200, 182, 98, 21);
 		panel_10.add(xyshu);
-		
-		xypin = new JTextField();
-		xypin.setColumns(10);
-		xypin.setBounds(162, 239, 66, 21);
-		panel_10.add(xypin);
 		
 		JButton button_8 = new JButton("\u63D0\u4EA4");
 		button_8.addActionListener(new ActionListener() {
@@ -507,7 +497,7 @@ public class Client_Admin extends JFrame{
 				dg.setPrice(Double.parseDouble(xyjia.getText()));
 				dg.setUnit(xydan.getText());
 				dg.setAmount(Integer.parseInt(xyshu.getText()));
-				dg.setCode(xypin.getText());
+				dg.setCode(getPingYin(xym.getText()));
 				int flag=0;
 				flag=DrugDaoFactory.getInstance().updateDrug(dg);
 				if(flag==1){
@@ -531,7 +521,7 @@ public class Client_Admin extends JFrame{
 		
 		sym = new JTextField();
 		sym.setColumns(10);
-		sym.setBounds(209, 16, 90, 21);
+		sym.setBounds(186, 16, 131, 21);
 		panel_11.add(sym);
 		
 		JButton button_9 = new JButton("\u63D0\u4EA4");
