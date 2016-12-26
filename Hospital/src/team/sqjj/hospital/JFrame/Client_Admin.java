@@ -82,25 +82,25 @@ public class Client_Admin extends JFrame{
 		panel_4.setLayout(null);
 		
 		JLabel label = new JLabel("\u8BF7\u8F93\u5165\u79D1\u5BA4\u623F\u95F4\u53F7");
-		label.setBounds(42, 32, 96, 32);
+		label.setBounds(42, 32, 119, 32);
 		panel_4.add(label);
 		
 		xkr = new JTextField();
-		xkr.setBounds(184, 38, 66, 21);
+		xkr.setBounds(184, 38, 93, 21);
 		panel_4.add(xkr);
 		xkr.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("\u8BF7\u8F93\u5165\u79D1\u5BA4\u540D\u79F0");
-		lblNewLabel.setBounds(42, 95, 96, 32);
+		lblNewLabel.setBounds(42, 95, 119, 32);
 		panel_4.add(lblNewLabel);
 		
 		xkd = new JTextField();
-		xkd.setBounds(184, 101, 66, 21);
+		xkd.setBounds(184, 101, 93, 21);
 		panel_4.add(xkd);
 		xkd.setColumns(10);
 		
 		JLabel label_1 = new JLabel("\u8BF7\u8F93\u5165\u79D1\u5BA4\u4FE1\u606F");
-		label_1.setBounds(42, 163, 96, 32);
+		label_1.setBounds(42, 163, 119, 32);
 		panel_4.add(label_1);
 		
 		JTextArea xki = new JTextArea();
@@ -131,11 +131,11 @@ public class Client_Admin extends JFrame{
 		panel_5.setLayout(null);
 		
 		JLabel label_2 = new JLabel("\u8BF7\u9009\u62E9\u8981\u5220\u9664\u7684\u79D1\u5BA4");
-		label_2.setBounds(42, 32, 108, 32);
+		label_2.setBounds(42, 32, 137, 32);
 		panel_5.add(label_2);
 		
 		JComboBox skd = new JComboBox();
-		skd.setBounds(199, 38, 184, 21);
+		skd.setBounds(237, 38, 161, 21);
 		List<Department> list=DepartmentDaoFactory.getInstance().getDepartment();
 		for(int i=0;i<list.size();i++)
 		{
@@ -168,25 +168,25 @@ public class Client_Admin extends JFrame{
 		panel_3.setLayout(null);
 		
 		JLabel label_3 = new JLabel("\u8BF7\u8F93\u5165\u79D1\u5BA4\u623F\u95F4\u53F7");
-		label_3.setBounds(42, 32, 96, 32);
+		label_3.setBounds(42, 32, 132, 32);
 		panel_3.add(label_3);
 		
 		zkr = new JTextField();
 		zkr.setColumns(10);
-		zkr.setBounds(184, 38, 66, 21);
+		zkr.setBounds(184, 38, 93, 21);
 		panel_3.add(zkr);
 		
 		JLabel label_4 = new JLabel("\u8BF7\u8F93\u5165\u79D1\u5BA4\u540D\u79F0");
-		label_4.setBounds(42, 95, 96, 32);
+		label_4.setBounds(42, 95, 132, 32);
 		panel_3.add(label_4);
 		
 		zkd = new JTextField();
 		zkd.setColumns(10);
-		zkd.setBounds(184, 101, 66, 21);
+		zkd.setBounds(184, 101, 93, 21);
 		panel_3.add(zkd);
 		
 		JLabel label_5 = new JLabel("\u8BF7\u8F93\u5165\u79D1\u5BA4\u4FE1\u606F");
-		label_5.setBounds(42, 163, 96, 32);
+		label_5.setBounds(42, 163, 132, 32);
 		panel_3.add(label_5);
 		
 		JTextArea zki = new JTextArea();
@@ -235,20 +235,20 @@ public class Client_Admin extends JFrame{
 		panel_6.setLayout(null);
 		
 		JLabel label_6 = new JLabel("\u8BF7\u8F93\u5165\u8BE5\u533B\u751F\u767B\u9646\u8D26\u53F7");
-		label_6.setBounds(42, 32, 120, 32);
+		label_6.setBounds(42, 32, 147, 32);
 		panel_6.add(label_6);
 		
 		zyz = new JTextField();
 		zyz.setColumns(10);
-		zyz.setBounds(184, 38, 66, 21);
+		zyz.setBounds(217, 38, 121, 21);
 		panel_6.add(zyz);
 		
 		JLabel label_7 = new JLabel("\u8BF7\u8F93\u5165\u533B\u751F\u59D3\u540D");
-		label_7.setBounds(42, 95, 96, 32);
+		label_7.setBounds(42, 95, 147, 32);
 		panel_6.add(label_7);
 		
 		zyn = new JTextField();
-		zyn.setBounds(184, 101, 66, 21);
+		zyn.setBounds(217, 101, 121, 21);
 		panel_6.add(zyn);
 		zyn.setColumns(10);
 		
@@ -257,7 +257,7 @@ public class Client_Admin extends JFrame{
 		panel_6.add(label_8);
 		
 		JComboBox zyd = new JComboBox();
-		zyd.setBounds(184, 169, 174, 21);
+		zyd.setBounds(217, 169, 161, 21);
 		List<Department> list1=DepartmentDaoFactory.getInstance().getDepartment();
 		for(int i=0;i<list.size();i++)
 		{
@@ -291,29 +291,35 @@ public class Client_Admin extends JFrame{
 		panel_8.setLayout(null);
 		
 		JLabel label_9 = new JLabel("\u8BF7\u8F93\u5165\u8BE5\u533B\u751F\u767B\u9646\u8D26\u53F7");
-		label_9.setBounds(42, 32, 120, 32);
+		label_9.setBounds(42, 32, 160, 32);
 		panel_8.add(label_9);
 		
 		xyz = new JTextField();
 		xyz.setColumns(10);
-		xyz.setBounds(184, 38, 66, 21);
+		xyz.setBounds(211, 38, 120, 21);
 		panel_8.add(xyz);
 		
 		JLabel label_10 = new JLabel("\u8BF7\u8F93\u5165\u533B\u751F\u59D3\u540D");
-		label_10.setBounds(42, 95, 96, 32);
+		label_10.setBounds(42, 95, 160, 32);
 		panel_8.add(label_10);
 		
 		xyn = new JTextField();
 		xyn.setColumns(10);
-		xyn.setBounds(184, 101, 66, 21);
+		xyn.setBounds(211, 101, 120, 21);
 		panel_8.add(xyn);
 		
 		JLabel label_11 = new JLabel("\u8BF7\u9009\u62E9\u79D1\u5BA4");
-		label_11.setBounds(42, 163, 96, 32);
+		label_11.setBounds(42, 163, 160, 32);
 		panel_8.add(label_11);
 		
 		JComboBox xyd = new JComboBox();
-		xyd.setBounds(184, 169, 174, 21);
+		xyd.setBounds(211, 169, 174, 21);
+		List<Department> list2=DepartmentDaoFactory.getInstance().getDepartment();
+		for(int i=0;i<list.size();i++)
+		{
+			String str=list.get(i).getDepartment();
+			zyd.addItem(str);
+		}
 		panel_8.add(xyd);
 		
 		JButton button_4 = new JButton("\u63D0\u4EA4");
@@ -341,12 +347,12 @@ public class Client_Admin extends JFrame{
 		panel_7.setLayout(null);
 		
 		JLabel label_12 = new JLabel("\u8BF7\u8F93\u5165\u8BE5\u533B\u751F\u767B\u9646\u8D26\u53F7");
-		label_12.setBounds(42, 32, 120, 32);
+		label_12.setBounds(42, 32, 156, 32);
 		panel_7.add(label_12);
 		
 		syz = new JTextField();
 		syz.setColumns(10);
-		syz.setBounds(184, 38, 66, 21);
+		syz.setBounds(225, 38, 102, 21);
 		panel_7.add(syz);
 		
 		JButton button_5 = new JButton("\u5220\u9664");
@@ -387,19 +393,19 @@ public class Client_Admin extends JFrame{
 		qq.setLayout(null);
 		
 		JLabel label_13 = new JLabel("\u8BF7\u8F93\u5165\u836F\u54C1\u540D\u79F0");
-		label_13.setBounds(42, 10, 90, 32);
+		label_13.setBounds(42, 10, 126, 32);
 		qq.add(label_13);
 		
 		JLabel label_14 = new JLabel("\u8BF7\u8F93\u5165\u836F\u54C1\u4EF7\u683C");
-		label_14.setBounds(42, 64, 90, 32);
+		label_14.setBounds(42, 64, 126, 32);
 		qq.add(label_14);
 		
 		JLabel label_15 = new JLabel("\u8BF7\u8F93\u5165\u836F\u54C1\u5355\u4F4D");
-		label_15.setBounds(42, 122, 90, 32);
+		label_15.setBounds(42, 122, 126, 32);
 		qq.add(label_15);
 		
 		JLabel label_16 = new JLabel("\u8BF7\u8F93\u5165\u836F\u54C1\u6570\u91CF");
-		label_16.setBounds(42, 176, 90, 32);
+		label_16.setBounds(42, 176, 126, 32);
 		qq.add(label_16);
 		
 		JButton button_6 = new JButton("\u63D0\u4EA4");
@@ -426,22 +432,22 @@ public class Client_Admin extends JFrame{
 		
 		zym = new JTextField();
 		zym.setColumns(10);
-		zym.setBounds(162, 16, 66, 21);
+		zym.setBounds(201, 16, 93, 21);
 		qq.add(zym);
 		
 		zyj = new JTextField();
 		zyj.setColumns(10);
-		zyj.setBounds(162, 70, 66, 21);
+		zyj.setBounds(201, 70, 93, 21);
 		qq.add(zyj);
 		
 		zydan = new JTextField();
 		zydan.setColumns(10);
-		zydan.setBounds(162, 128, 66, 21);
+		zydan.setBounds(201, 128, 93, 21);
 		qq.add(zydan);
 		
 		zyshu = new JTextField();
 		zyshu.setColumns(10);
-		zyshu.setBounds(162, 182, 66, 21);
+		zyshu.setBounds(201, 182, 93, 21);
 		qq.add(zyshu);
 		
 		JPanel panel_10 = new JPanel();
@@ -520,12 +526,12 @@ public class Client_Admin extends JFrame{
 		panel_11.setLayout(null);
 		
 		JLabel label_23 = new JLabel("\u8BF7\u8F93\u5165\u836F\u54C1\u540D\u79F0");
-		label_23.setBounds(42, 10, 90, 32);
+		label_23.setBounds(42, 10, 146, 32);
 		panel_11.add(label_23);
 		
 		sym = new JTextField();
 		sym.setColumns(10);
-		sym.setBounds(162, 16, 66, 21);
+		sym.setBounds(209, 16, 90, 21);
 		panel_11.add(sym);
 		
 		JButton button_9 = new JButton("\u63D0\u4EA4");
@@ -545,6 +551,11 @@ public class Client_Admin extends JFrame{
 		panel_11.add(button_9);
 		
 		JButton button_7 = new JButton("\u9000\u51FA");
+		button_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		button_7.setBounds(343, 391, 93, 31);
 		panel_2.add(button_7);
 		

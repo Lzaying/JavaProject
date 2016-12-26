@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class Dao {
 	protected static String dbClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	protected static String dbUrl = "jdbc:sqlserver://localhost:1433;"
-			+ "DatabaseName=Hospital;SelectMethod=Cursor";
+			+ "DatabaseName=hospital5;SelectMethod=Cursor";
 	protected static String dbUser = "sa";
 	protected static String dbPwd = "";
 	protected static String second = null;

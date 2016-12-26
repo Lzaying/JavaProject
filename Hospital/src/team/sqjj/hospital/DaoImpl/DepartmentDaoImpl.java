@@ -91,4 +91,21 @@ public class DepartmentDaoImpl implements DepartmentDao{
 		dao.close();		
 		return count;
 	}
+	@Override
+	public int getDepartment_Id(String department) {
+		// TODO Auto-generated method stub
+		int did=0;
+		try{
+			String sql="select Department_Id from Department where  Department='"+department+"'";
+			ResultSet rs=dao.executeQuery(sql);
+			if(rs.next())
+			{
+				did=rs.getInt(1);
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		dao.close();		
+		return did;
+	}
 }

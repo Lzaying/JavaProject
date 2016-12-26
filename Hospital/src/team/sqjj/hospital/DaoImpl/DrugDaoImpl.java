@@ -122,4 +122,16 @@ public class DrugDaoImpl implements DrugDao{
 	        return list;
 	        }
 	}
+	@Override
+	public int delDrug(String drug_Name) {
+    	int i=0;
+  		try{
+  			String sql="delete from Drug where Drug_Name='"+drug_Name+"'";
+ 			i=dao.executeUpdate(sql);
+ 		}catch(Exception e){
+ 			e.printStackTrace();
+ 		}
+ 		dao.close();
+ 		return i;
+	}
 }
