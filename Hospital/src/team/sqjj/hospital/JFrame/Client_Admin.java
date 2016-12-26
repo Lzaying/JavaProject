@@ -9,6 +9,12 @@ import javax.swing.JLayeredPane;
 import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 
+import net.sourceforge.pinyin4j.*;
+import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
+import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
+import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 import team.sqjj.hospital.DaoFactory.DepartmentDaoFactory;
 import team.sqjj.hospital.DaoFactory.DoctorDaoFactory;
 import team.sqjj.hospital.DaoFactory.DrugDaoFactory;
@@ -50,7 +56,6 @@ public class Client_Admin extends JFrame{
 	private JTextField zyj;
 	private JTextField zydan;
 	private JTextField zyshu;
-	private JTextField zypin;
 	private JTextField xym;
 	private JTextField xyjia;
 	private JTextField xydan;
@@ -397,10 +402,6 @@ public class Client_Admin extends JFrame{
 		label_16.setBounds(42, 176, 90, 32);
 		qq.add(label_16);
 		
-		JLabel label_17 = new JLabel("\u8BF7\u8F93\u5165\u836F\u54C1\u62FC\u97F3\u7801");
-		label_17.setBounds(42, 233, 110, 32);
-		qq.add(label_17);
-		
 		JButton button_6 = new JButton("\u63D0\u4EA4");
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -409,7 +410,7 @@ public class Client_Admin extends JFrame{
 				dg.setPrice(Double.parseDouble(zyj.getText()));
 				dg.setUnit(zydan.getText());
 				dg.setAmount(Integer.parseInt(zyshu.getText()));
-				dg.setCode(zypin.getText());
+				dg.setCode(getPingYin(zym.getText()));
 				int flag=0;
 				flag=DrugDaoFactory.getInstance().addDrug(dg);
 				if(flag==1){
@@ -442,11 +443,6 @@ public class Client_Admin extends JFrame{
 		zyshu.setColumns(10);
 		zyshu.setBounds(162, 182, 66, 21);
 		qq.add(zyshu);
-		
-		zypin = new JTextField();
-		zypin.setColumns(10);
-		zypin.setBounds(162, 239, 66, 21);
-		qq.add(zypin);
 		
 		JPanel panel_10 = new JPanel();
 		tabbedPane_3.addTab("修改药品信息", null, panel_10, null);
@@ -588,4 +584,33 @@ public class Client_Admin extends JFrame{
 
 	private static void addPopup(Component component, final JPopupMenu popup) {
 	}
+	
+	
+	public static String getPingYin(String inputString) {
+        HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
+        format.setCaseType(HanyuPinyinCaseType.LOWERCASE);
+        format.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
+        format.setVCharType(HanyuPinyinVCharType.WITH_V);
+        String output = "";
+        if (inputString != null && inputString.length() > 0
+                && !"null".equals(inputString)) {
+            char[] input = inputString.trim().toCharArray();
+            try {
+                for (int i = 0; i < input.length; i++) {
+                    if (java.lang.Character.toString(input[i]).matches(
+                            "[\\u4E00-\\u9FA5]+")) {
+                        String[] temp = PinyinHelper.toHanyuPinyinStringArray(
+                                input[i], format);
+                        output += temp[0];
+                    } else
+                        output += java.lang.Character.toString(input[i]);
+                }
+            } catch (BadHanyuPinyinOutputFormatCombination e) {
+                e.printStackTrace();
+            }
+        } else {
+            return "*";
+        }
+        return output;
+    }
 }
