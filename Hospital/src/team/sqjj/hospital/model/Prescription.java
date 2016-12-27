@@ -2,7 +2,7 @@ package team.sqjj.hospital.model;
 
 import java.util.List;
 
-public class Prescription {
+public class Prescription implements Serializable {
 private int prescription_Id;
 private String patient_Id;
 private String doctor_Id;
