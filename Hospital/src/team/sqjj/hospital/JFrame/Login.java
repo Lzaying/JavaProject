@@ -32,12 +32,11 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JPasswordField;
 
 public class Login extends JFrame implements ActionListener{
 	private JTextField textField;
+	private JTextField textField_1;
 	private JButton doc;
-	private JPasswordField passwordField;
 	public Login() {
 		super("登录");
 			
@@ -55,6 +54,11 @@ public class Login extends JFrame implements ActionListener{
 		textField.setBounds(118, 49, 143, 21);
 		getContentPane().add(textField);
 		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(118, 89, 143, 21);
+		getContentPane().add(textField_1);
+		textField_1.setColumns(10);
 		
 		doc = new JButton("登录");
 		doc.setBounds(52, 156, 93, 23);
@@ -77,10 +81,6 @@ public class Login extends JFrame implements ActionListener{
 		lblNewLabel_2.setBounds(96, 10, 177, 29);
 		getContentPane().add(lblNewLabel_2);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(118, 89, 143, 21);
-		getContentPane().add(passwordField);
-		
 		this.setVisible(true);
 		this.setSize(400, 300);
 			
@@ -96,13 +96,16 @@ public class Login extends JFrame implements ActionListener{
 			if(textField.getText().length()==0){
 				JOptionPane.showMessageDialog(this, "用户名不能为空！");
 			}
-			else if(passwordField.getPassword().length==0){
+			else if(textField_1.getText().length()==0){
 				JOptionPane.showMessageDialog(this, "密码不能为空！");
 			}else{
 				String username=textField.getText();
-				String password=passwordField.getPassword().toString();
+				String password=textField_1.getText();
 				User user=	UserDaoFactory.getInstance().getById(username);
-				if(user!=null&&user.getPassword()==password){
+				
+				
+				if(user!=null&&user.getPassword().equals(password)){
+					System.out.println(user);
 					if(user.getRole()==0){new Client_Admin();}
 					else if(user.getRole()==1){new Client_Register();}
 					else if(user.getRole()==2){new Client_Doctor(username);}
