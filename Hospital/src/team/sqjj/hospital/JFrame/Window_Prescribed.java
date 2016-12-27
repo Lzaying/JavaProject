@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JScrollPane;
@@ -16,6 +17,7 @@ import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import team.sqjj.hospital.DaoFactory.PrescriptionDaoFactory;
 import team.sqjj.hospital.model.Prescription;
 import team.sqjj.hospital.model.PrescriptionItem;
 import java.awt.event.ActionListener;
@@ -93,6 +95,9 @@ public class Window_Prescribed extends JFrame{
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		
+		new Window_Prescribed(prescription);
 		
 	}
 }

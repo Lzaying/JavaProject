@@ -10,5 +10,6 @@ public class Queue {
 	public static Map<String,List<Patient>> qlist=new HashMap<String,List<Patient>> ();
 public static Map<String,List<Patient>> qlist1=new HashMap<String,List<Patient>> ();
 public static Map<String,List<Patient>> qlist2=new HashMap<String,List<Patient>> ();
-
+public static Map<String,Integer> paiduirenshu=new HashMap<String,Integer>();
+public static int PrescriptionNumber=0;
 }

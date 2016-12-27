@@ -16,12 +16,11 @@ import javax.swing.JTable;
 import java.awt.*;
 import javax.swing.*;
 
-
+import team.sqjj.hospital.DaoImpl.PrescriptionDaoImpl;
 import team.sqjj.hospital.JFrame.Client_Doctor.DoctorClientThread;
 import team.sqjj.hospital.model.Patient;
-
 import team.sqjj.hospital.model.Prescription;
-import team.sqjj.hospital.model.PrescriptionItem;
+import team.sqjj.hospital.model.Prescription;
 import team.sqjj.hospital.model.Register;
 import team.sqjj.hospital.DaoFactory.*;
 import javax.swing.border.LineBorder;
@@ -32,25 +31,31 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.awt.event.ActionEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.GroupLayout.Alignment;
+
 
 public class Client_DrugStore extends JFrame{
-	private JTable table_1,table_2,table_3;
-	private JScrollPane scrollPane;
+	
     private Socket socket;
     private OutputStream os;
 	private PrintWriter pw;
-	
+	private JScrollPane scrollPane_paid;
+	private Prescription prescription;
+	private DefaultTableModel model1,model2;
+	private String [] prescriptionlist = { "药单号", "病人姓名", "医生姓名", "总额"};
 	private Object[][] getselect(List list){
-		Object[][] s = new Object[list.size()][2];
+		Object[][] s = new Object[list.size()][4];
 		for (int i = 0; i < list.size(); i++) {
-			PrescriptionItem prescribe = (PrescriptionItem) list.get(i);
-						
-			s[i][0] = prescribe.getDrug_id();
-			s[i][1] = prescribe.getQuantity();
-			
+			Prescription prescription = (Prescription) list.get(i);
+			s[i][0] = prescription.getPrescription_Id();			
+			s[i][1] = PatientDaoFactory.getInstance().getInfoById(prescription.getPatient_Id()).getPatient_Name();
+			//添加了以医生id得到医生信息.
+			s[i][2] = DoctorDaoFactory.getInstance().getbyId(prescription.getDoctor_Id()).getName();
+			s[i][3] = prescription.getTotalPrice();
 		}
 		return s;
 	}
@@ -58,157 +63,135 @@ public class Client_DrugStore extends JFrame{
 	
 	public Client_DrugStore() {
 		super("药房端");
-		try {
-			socket = new Socket("localhost", 8888);
-			os = socket.getOutputStream();// 字节输出流
-			pw = new PrintWriter(os);// 将输出流包装为打印流
-			pw.write("4");
-			pw.flush();
-			socket.shutdownOutput();// 关闭输出流
-			pw.close();
-			os.close();
-			new DrugStoreClientThread(socket).start();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
+			new DrugStoreClientThread().start();
+		
 
 		
 		
 		
-		
+		//======================已付款================================= 
 		final JTabbedPane tabbedPane = new JTabbedPane();
 		tabbedPane.setPreferredSize(new Dimension(0, 50));
 		getContentPane().add(tabbedPane);
-		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("待抓药订单", null, panel, null);
-		panel.setLayout(null);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(21, 0, 448, 143);
-		panel.add(panel_3);
-		panel_3.setLayout(null);
-		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(174, 29, 264, 104);
-		panel_3.add(textPane);
-		
-		JLabel lblNewLabel = new JLabel("订单队列");
-		lblNewLabel.setBounds(65, 52, 99, 35);
-		panel_3.add(lblNewLabel);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(21, 202, 450, 123);
-		scrollPane.setPreferredSize(new Dimension(450, 250));
-		panel.add(scrollPane);
-		
-		String qin=null;//需要病人id，下面调用的不对
-		 String [] druglist = { "简码", "名称", "单价", "单位","数量" };
-		Object[][] results=getselect(PrescriptionDaoFactory.getInstance().getByPatientID(qin));		
-		table_1 = new JTable(results,druglist);
-		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		
-		table_1.setAutoResizeMode(WIDTH);
-		scrollPane.setViewportView(table_1);
-		
-		JButton btnNewButton = new JButton("抓药");
-		btnNewButton.setBounds(246, 169, 93, 23);
-		panel.add(btnNewButton);
-		
-		
-		JButton btnNewButton_1 = new JButton("退出");
-		btnNewButton_1.setBounds(349, 169, 93, 23);
-		panel.add(btnNewButton_1);
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("未付款订单", null, panel_1, null);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		panel_1.add(scrollPane_1);
-		
-		String sun=null;//需要病人id,下面调用的不对
-		 String [] druglist_2 = { "药单号", "病人姓名", "医生姓名", "总额"};
-		Object[][] results_2=getselect(PrescribeDaoFactory.getInstance().getByPatientID(sun));		
-		table_2 = new JTable(results_2,druglist_2);
-		table_2.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-				{null, null, null, null},
-			},
-			new String[] {
-				"\u836F\u5355\u53F7", "\u75C5\u4EBA\u59D3\u540D", "\u533B\u751F\u59D3\u540D", "\u603B\u989D"
-			}
-		));
-		table_2.getColumnModel().getColumn(0).setMinWidth(16);
-		table_2.getColumnModel().getColumn(3).setPreferredWidth(76);
-		table_2.getColumnModel().getColumn(3).setMinWidth(20);
-		scrollPane_1.setViewportView(table_2);
-		
-		
-		
+
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("可发药单", null, panel_2, null);
-		panel_2.setLayout(null);
+		panel_2.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(6, 10, 452, 268);
-		panel_2.add(scrollPane_3);
-		String li=null;//需要病人id,下面调用的不对
-		 String [] druglist_3 = { "药单号", "病人姓名", "医生姓名", "总额"};
-		Object[][] results_3=getselect(PrescribeDaoFactory.getInstance().getByPatientID(li));		
-		table_3 = new JTable(results_3,druglist_3);
-		table_3.setVisible(true);
-		scrollPane_3.setViewportView(table_3);
+		scrollPane_paid = new JScrollPane();
+		panel_2.add(scrollPane_paid);
 		
+		Object[][] results_paid=getselect(PrescriptionDaoFactory.getInstance().getPaid());
+		model1=new DefaultTableModel(results_paid,prescriptionlist){ 
+			public boolean isCellEditable(int row,int column){
+				return false;  
+			}			
+		};
+
+		JTable table_paid= new JTable(model1);
+		scrollPane_paid.setViewportView(table_paid);
+
 		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(10, 297, 448, 126);
 		panel_2.add(panel_4);
 		panel_4.setLayout(null);
 		
 		JButton btnNewButton_2 = new JButton("发药");
-		btnNewButton_2.setBounds(333, 22, 93, 23);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			int row=table_paid.getSelectedRow();
+			if(row==-1)
+				JOptionPane.showMessageDialog(table_paid, "请选择要拿的药！");
+			
+			else{
+				model1.removeRow(row-1);	
+			
+			}
+		}
+		});
+		btnNewButton_2.setBounds(63, 29, 93, 23);
 		panel_4.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("退出");
-		btnNewButton_3.setBounds(333, 63, 93, 23);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnNewButton_3.setBounds(290, 62, 93, 23);
 		panel_4.add(btnNewButton_3);
 		
-		this.setSize(500,500);
+		JButton btnNewButton = new JButton("刷新");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				DefaultTableModel model = new DefaultTableModel(results_paid,prescriptionlist);
+				table_paid.setModel(model);//更新表
+		
+			}
+		});
+		btnNewButton.setBounds(63, 62, 93, 23);
+		panel_4.add(btnNewButton);
+		//==============================================未付款==============================
+		JPanel panel_1 = new JPanel();
+		tabbedPane.addTab("未付款订单", null, panel_1, null);
+		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
+		JScrollPane scrollPane_1 = new JScrollPane();
+		panel_1.add(scrollPane_1);
+		
+		Object[][] results_unpaid=getselect(PrescriptionDaoFactory.getInstance().getUnPaidr());
+		model2=new DefaultTableModel (results_unpaid,prescriptionlist){ 
+			public boolean isCellEditable(int row,int column){
+				return false;  
+			}			
+		};
+		JTable table_unpaid = new JTable(model2);		
+		scrollPane_1.setViewportView(table_unpaid);
+		
+		JPanel panel = new JPanel();
+		panel_1.add(panel);
+		panel.setLayout(null);
+		
+		JButton btnNewButton_1 = new JButton("刷新");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel model = new DefaultTableModel(results_unpaid,prescriptionlist);
+				table_paid.setModel(model);//更新表
+			}
+		});
+		btnNewButton_1.setBounds(76, 34, 93, 23);
+		panel.add(btnNewButton_1);
+		
+		JButton btnNewButton_4 = new JButton("退出");
+		btnNewButton_4.setBounds(210, 34, 93, 23);
+		panel.add(btnNewButton_4);
+
+		this.setSize(600,400);
 		setVisible(true);
 	}
 
 	class DrugStoreClientThread extends Thread {
 		// 和本线程相关的Socket
 		Socket socket = null;
-
-		public DrugStoreClientThread(Socket socket) {
-			this.socket = socket;
+		ServerSocket serverSocket;
+		public DrugStoreClientThread() {
+			try {
+				 serverSocket=new ServerSocket(8559);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Socket socket=null;
 		}
 
 		// 线程执行的操作，响应客户端的请求
 		public void run() {
-			while (true) {
+			while (true) {try {
+				socket=serverSocket.accept();
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			//创建一个新的线程
 				InputStream is = null;
 				InputStreamReader isr = null;
 				ObjectInputStream ois = null;
@@ -240,8 +223,7 @@ public class Client_DrugStore extends JFrame{
 		}
 	}	
 	
-	
-	
+
 	
 	
 	
