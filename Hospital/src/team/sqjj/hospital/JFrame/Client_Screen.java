@@ -18,6 +18,7 @@ import team.sqjj.hospital.model.Doctor;
 import team.sqjj.hospital.model.Patient;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -46,7 +47,7 @@ import java.awt.event.ItemEvent;
 
 public class Client_Screen extends JFrame{
 	private Doctor doctor=null;
-	private List<Patient> list;
+	private List<Patient> list=new ArrayList<Patient>();
 	private JTextPane patients_list;
 	public Client_Screen() {
 		Map<String, Doctor> map2 = new HashMap<String, Doctor>();
@@ -139,8 +140,8 @@ public class Client_Screen extends JFrame{
 		yisheng.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				/////////////////////////////////////;
-				doctor=map2.get(yisheng.getSelectedItem().toString());
-				//new DoctorClientThread();
+				doctor=map2.get(yisheng.getSelectedItem());
+				new DoctorClientThread().start();;
 //				jlist.setModel(new AbstractListModel() {
 //					String[] values = new String[] {"aa", "bb", "cc", "dd", "ff", "dd", "d", "s", "", "s"};
 //					public int getSize() {
@@ -163,7 +164,9 @@ public class Client_Screen extends JFrame{
 		public void run() {
 			while (true) {
 				System.out.println("我在这里欢笑" + Queue.qlist.get(doctor.getDoctor_Id()));
-				list = Queue.qlist.get(doctor.getId());
+				list.clear();
+				if(Queue.qlist.get(doctor.getId())!=null)
+				list.addAll( Queue.qlist.get(doctor.getId()));
 				if (list != null) {
 					if (list.size() != 0) {
                      
@@ -182,6 +185,7 @@ public class Client_Screen extends JFrame{
 							}
 
 						}
+						System.out.println(patientlist);
 						patients_list.setText(patientlist);
 
 					}
