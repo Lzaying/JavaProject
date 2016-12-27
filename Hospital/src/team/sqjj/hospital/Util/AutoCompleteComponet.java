@@ -2,19 +2,26 @@ package team.sqjj.hospital.Util;
 
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.*;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import java.util.*;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import team.sqjj.hospital.DaoFactory.DrugDaoFactory;
+import team.sqjj.hospital.JFrame.Client_Doctor;
+import team.sqjj.hospital.model.Drug;
 
 
 
@@ -23,7 +30,7 @@ public class AutoCompleteComponet {
     public static JTextField create() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
        
         ArrayList<String> items = new ArrayList<String>();
-        Map map = getStationMap(StationConstant.stationString1);
+        Map map = getStationMap();
         Iterator iterator = map.keySet().iterator();
         while (iterator.hasNext()) {
             String stationName = iterator.next().toString();
@@ -139,18 +146,24 @@ public class AutoCompleteComponet {
      * @param stations2
      *            站点的字符串二 因为一个字符串装不下
      * */
-    public static Map getStationMap(String stations1) {
-        Map map = new HashMap();
-        if (!stations1.equals(null)) {
-            String[] strs1 = stations1.split("@");
-            for (int i = 1; i < strs1.length; i++) {
-                String[] strs2 = strs1[i].split("\\|");
-                for (int j = 0; j < strs2.length; j++) {
-                    map.put(strs2[j], strs2[1]);
-                }
-        
-            }
-        }
-        return map;
+ 
+    public static Map getStationMap(){
+    	 Map map = new HashMap();
+    	 List<Drug> dlist=DrugDaoFactory.getInstance().getAll();
+    Iterator<Drug> it=dlist.iterator();
+    while(it.hasNext()){
+    	Drug drug=it.next();
+    	map.put(drug.getCode(), drug.getDrug_Name());
+    	map.put(drug.getDrug_Name(), drug.getDrug_Name());
     }
+	return map;
+    	
+    	
+    }public static void main(String[] args) {
+    	
+		new AutoCompleteComponet();
+		
+	}
+    
+    
 }
