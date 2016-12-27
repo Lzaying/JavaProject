@@ -1,6 +1,8 @@
 package team.sqjj.hospital.model;
 
-public class PrescriptionItem {
+import java.io.Serializable;
+
+public class PrescriptionItem implements Serializable{
 	private int  Item_id;
 	private int drug_id;
 	private int prescription_id;

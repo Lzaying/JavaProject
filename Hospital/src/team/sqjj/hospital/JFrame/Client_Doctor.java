@@ -39,6 +39,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
@@ -63,37 +65,32 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 public class Client_Doctor extends JFrame implements ActionListener {
-	private JTextField txtFf;
+	private JTextField br;
 	private JButton mkdrug;
-	private List<Patient> list = new ArrayList<Patient>();
+	private List<Patient> list;
 	private Socket socket;
 	private OutputStream os;
 	private PrintWriter pw;
-
-	private Patient patient=null;
+	public JPanel panel;
+	private Patient patient = null;
 	private Doctor doctor;
 	private JLabel lblNewLabel_2;
 	private JTextPane patients_list;
-
+	private boolean stopped=true;
+  private DoctorClientThread th;
 	public Client_Doctor(String username) {
-		super("医生");
+
 		try {
-			socket = new Socket("localhost", 8808);
-			os = socket.getOutputStream();// 字节输出流
-			pw = new PrintWriter(os);// 将输出流包装为打印流
-			pw.write(username);
-			pw.flush();
-			socket.shutdownOutput();// 关闭输出流
-			pw.close();
-			os.close();
-			//new DoctorClientThread().start();
+			socket = new Socket("localhost", 8559);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
+		System.out.println("我在这里欢笑" + Queue.qlist.get(username));
+		
 		doctor = DoctorDaoFactory.getInstance().getbyId(username);
-        System.out.print(doctor);
+		th=new DoctorClientThread();
+				th.start();
 		getContentPane().setLayout(null);
 
 		JLabel lblNewLabel = new JLabel(
@@ -107,32 +104,33 @@ public class Client_Doctor extends JFrame implements ActionListener {
 		lblNewLabel_1.setBounds(346, 19, 161, 48);
 		getContentPane().add(lblNewLabel_1);
 
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBounds(35, 98, 331, 316);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		String patientlist = "";
-		Iterator<Patient> it = list.iterator();
-		while (it.hasNext()) {
-			Patient patient = it.next();
-
-			patientlist += patient.getPatient_Name();
-			patientlist += '\n';
-
-		}
-
+		// list=Queue.qlist.get(username);
+		// if(list!=null){
+		//// Iterator<Patient> it = list.iterator();
+		//// while (it.hasNext()) {
+		//// Patient patient = it.next();
+		////
+		//// patientlist += patient.getPatient_Name();
+		//// patientlist += '\n';
+		////
+		//// }}
 		lblNewLabel_2 = new JLabel("当前病人：");
 		lblNewLabel_2.setBounds(10, 10, 109, 15);
-	
+
 		panel.add(lblNewLabel_2);
 
-		txtFf = new JTextField();
-		if(patient!=null)
-		txtFf.setText(patient.getPatient_Name());
-		txtFf.setEditable(false);
-		txtFf.setBounds(10, 35, 293, 21);
-		panel.add(txtFf);
-		txtFf.setColumns(10);
+		br = new JTextField();
+		if (patient != null)
+			br.setText(patient.getPatient_Name());
+		br.setEditable(false);
+		br.setBounds(10, 35, 293, 21);
+		panel.add(br);
+		br.setColumns(10);
 
 		JLabel lblNewLabel_3 = new JLabel("病人队列：");
 		lblNewLabel_3.setBounds(10, 75, 71, 15);
@@ -168,52 +166,56 @@ public class Client_Doctor extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == mkdrug)
-			try {
-				new Window_Prescribe();
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (InstantiationException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IllegalAccessException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (UnsupportedLookAndFeelException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+			if (patient == null) {
+				JOptionPane.showMessageDialog(panel, "当前没有病人");
+				return;
 			}
+		try {
+			new Window_Prescribe();
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
-
-	
 
 	class DoctorClientThread extends Thread {
 		// 和本线程相关的Socket
 
 		public void run() {
-			while (true) {
-				list = Queue.qlist.get(doctor);
+			while (stopped) {
+				System.out.println("我在这里欢笑" + Queue.qlist.get(doctor.getDoctor_Id()));
+				list = Queue.qlist.get(doctor.getId());
+				if (list != null) {
+					if (list.size() != 0) {
+                        patient=list.get(0);
+						br.setText(patient.getPatient_Name());
+						String patientlist = "";
+						Iterator<Patient> it =list.iterator();
+						while (it.hasNext()) {
+							Patient patient = it.next();
 
-				if (list.size() != 0) {
+							patientlist += patient.getPatient_Name();
+							patientlist += '\n';
+							try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 
-					lblNewLabel_2.setText(patient.getPatient_Name());
-					String patientlist = "";
-					Iterator<Patient> it = Queue.qlist.get(doctor).iterator();
-					while (it.hasNext()) {
-						Patient patient = it.next();
-
-						patientlist += patient.getPatient_Name();
-						patientlist += '\n';
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
 						}
+						patients_list.setText(patientlist);
 
 					}
-					patients_list.setText(patientlist);
-
 				}
 			}
 		}
@@ -223,7 +225,7 @@ public class Client_Doctor extends JFrame implements ActionListener {
 		private JTextField textField;
 		private JTextField textField_1;
 		private Map<String, Drug> drugmap;
-		private Prescription prescription = new Prescription();
+		private Prescription prescription ;
 		private int amount;
 		private int totalprice = 0;
 		private List<Drug> dlist;
@@ -235,7 +237,7 @@ public class Client_Doctor extends JFrame implements ActionListener {
 		public Window_Prescribe() throws ClassNotFoundException, InstantiationException, IllegalAccessException,
 				UnsupportedLookAndFeelException {
 			super("开药");
-
+			prescription= new Prescription();
 			getContentPane().setLayout(null);
 
 			JPanel panel = new JPanel();
@@ -259,12 +261,12 @@ public class Client_Doctor extends JFrame implements ActionListener {
 			btnNewButton.setBounds(288, 153, 93, 23);
 			getContentPane().add(btnNewButton);
 
-			JLabel lblNewLabel_2 = new JLabel("");
-			lblNewLabel_2.setText("药单号"+Queue.PrescriptionNumber);
-			lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel_2.setFont(new Font("宋体", Font.PLAIN, 18));
-			lblNewLabel_2.setBounds(137, 10, 185, 26);
-			getContentPane().add(lblNewLabel_2);
+			JLabel yaodanhao = new JLabel("");
+			yaodanhao.setText("药单号" + Queue.PrescriptionNumber);
+			yaodanhao.setHorizontalAlignment(SwingConstants.CENTER);
+			yaodanhao.setFont(new Font("宋体", Font.PLAIN, 18));
+			yaodanhao.setBounds(137, 10, 185, 26);
+			getContentPane().add(yaodanhao);
 
 			JLabel label_1 = new JLabel("\u75C5\u4EBA\u59D3\u540D\uFF1A");
 			label_1.setBounds(26, 47, 71, 15);
@@ -287,7 +289,7 @@ public class Client_Doctor extends JFrame implements ActionListener {
 				public void actionPerformed(ActionEvent arg0) {
 					// TODO Auto-generated method stub
 					textPane.setText("");
-					yaodan="";
+					yaodan = "";
 					tiaomu.clear();
 				}
 
@@ -300,49 +302,55 @@ public class Client_Doctor extends JFrame implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
-					if(patient!=null)
-					{list.remove(patient);
-					Queue.qlist.get(doctor).remove(patient);
-					Queue.qlist1.get(doctor).remove(patient);
-					Queue.qlist2.get(doctor).remove(patient);}
-					if(list.size()!=0){
-					patient = list.get(0);
-					list.remove(0);}
+					dispose();
+					if (patient != null) {
+//						stopped=false;
+//						try {
+//							Thread.sleep(1000);
+//						} catch (InterruptedException e1) {
+//							// TODO Auto-generated catch block
+//							e1.printStackTrace();
+//						}
+						
+						Queue.qlist.get(doctor.getDoctor_Id()).remove(patient);
+						Queue.qlist1.get(doctor.getDoctor_Id()).remove(patient);
+						Queue.qlist2.get(doctor.getDoctor_Id()).remove(patient);
+						
+					}
+					//stopped=true;
+					th=new DoctorClientThread();
+					th.start();
+					br.setText(""); 
+					patients_list.setText("");
+
 					prescription.setDoctor_Id(doctor.getDoctor_Id());
-					prescription.setPatient_Id(patient.getPatient_Id());
+					
+				    prescription.setPatient_Id(patient.getPatient_Id());
+					
+					prescription.setPrescription_Id(Queue.PrescriptionNumber);
 					prescription.setPrescription_Item(tiaomu);
 					Queue.PrescriptionNumber++;
 					prescription.setTotalPrice(totalprice);
-                    PrescriptionDaoFactory.getInstance().addPrescription(prescription);
-					lblNewLabel_2.setText(patient.getPatient_Name());
-					String patientlist = "";
-					Iterator<Patient> it = list.iterator();
-					yaodan="";
-					while (it.hasNext()) {
-						Patient patient = it.next();
+                    System.out.println(prescription);
+					//PrescriptionDaoFactory.getInstance().addPrescription(prescription);
+				    yaodan="";
 
-						patientlist += patient.getPatient_Name();
-						patientlist += '\n';
-
-					}
-					patients_list.setText(patientlist);
-
-					try {
-
-						OutputStream os = socket.getOutputStream();
-						ObjectOutputStream oos = new ObjectOutputStream(os);
-						oos.writeObject(prescription);
-
-						oos.flush();
-
-						socket.shutdownOutput();// 关闭输出流
-						os.close();
-						oos.close();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					dispose();
+					 try {
+					
+					 OutputStream os = socket.getOutputStream();
+					 ObjectOutputStream oos = new ObjectOutputStream(os);
+					 oos.writeObject(prescription);
+					
+					 oos.flush();
+					
+					 socket.shutdownOutput();// 关闭输出流
+					 os.close();
+					 oos.close();
+					 } catch (IOException e1) {
+					 // TODO Auto-generated catch block
+					 e1.printStackTrace();
+					 }
+					
 				}
 
 			});
@@ -363,8 +371,8 @@ public class Client_Doctor extends JFrame implements ActionListener {
 			textField.setBounds(109, 46, 99, 21);
 			getContentPane().add(textField);
 			textField.setColumns(10);
-			if(patient!=null)
-			textField.setText(patient.getPatient_Name());
+			if (patient != null)
+				textField.setText(patient.getPatient_Name());
 			textField_1 = new JTextField();
 			textField_1.setEditable(false);
 			textField_1.setBounds(109, 71, 99, 21);
@@ -376,39 +384,37 @@ public class Client_Doctor extends JFrame implements ActionListener {
 			getContentPane().add(textField_2);
 			JComboBox comboBox = new JComboBox();
 			comboBox.addMouseListener(new MouseListener() {
-				
-				
 
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
 					// TODO Auto-generated method stub
 					d = drugmap.get(comboBox.getSelectedItem().toString());
-                    System.out.println("nimeide"+d);
+					System.out.println("nimeide" + d);
 					amount = d.getAmount();
 				}
 
 				@Override
 				public void mouseEntered(MouseEvent arg0) {
 					// TODO Auto-generated method stub
-					
+
 				}
 
 				@Override
 				public void mouseExited(MouseEvent arg0) {
 					// TODO Auto-generated method stub
-					
+
 				}
 
 				@Override
 				public void mousePressed(MouseEvent arg0) {
 					// TODO Auto-generated method stub
-					
+
 				}
 
 				@Override
 				public void mouseReleased(MouseEvent arg0) {
 					// TODO Auto-generated method stub
-					
+
 				}
 			});
 			comboBox.setBounds(219, 155, 59, 21);
@@ -433,19 +439,20 @@ public class Client_Doctor extends JFrame implements ActionListener {
 					int number = Integer.parseInt(textField_3.getText());
 					System.out.println(amount);
 					if (0 < number && number <= amount) {
-					yaodan += d.getDrug_Name() + "\t" + number + "\t " + comboBox.getSelectedItem().toString() + '\n';
+						yaodan += d.getDrug_Name() + "\t" + number + "\t " + comboBox.getSelectedItem().toString()
+								+ '\n';
 						totalprice += number * d.getPrice();
 						textPane.setText(yaodan);
 						PrescriptionItem preitem = new PrescriptionItem();
 						preitem.setDrug_id(d.getDrug_Id());
 						preitem.setQuantity(number);
-					    preitem.setPrescription_id(Queue.PrescriptionNumber);
-					
+						preitem.setPrescription_id(Queue.PrescriptionNumber);
+
 						tiaomu.add(preitem);
 
 					} else {
 						lblNewLabel.setVisible(true);
-return;
+						return;
 					}
 				}
 			});
@@ -455,16 +462,12 @@ return;
 				public void mouseReleased(MouseEvent arg0) {
 					// TODO Auto-generated method stub
 
-					
 				}
 
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
 					// TODO Auto-generated method stub
-					
-						
-						
-					
+
 				}
 
 				@Override
@@ -476,8 +479,6 @@ return;
 				@Override
 				public void mouseExited(MouseEvent arg0) {
 					// TODO Auto-generated method stub
-					
-					
 
 				}
 
@@ -488,16 +489,19 @@ return;
 					comboBox.removeAllItems();
 					drugmap = new HashMap();
 					for (int i = 0; i < dlist.size(); i++) {
-						Drug d = dlist.get(i);					
+						Drug d = dlist.get(i);
 						drugmap.put(d.getUnit(), d);
-				    comboBox.addItem(d.getUnit());
-				}}
+						comboBox.addItem(d.getUnit());
+					}
+				}
 
 			});
 
 		}
-	}public static void main(String[] args) {
-		new Client_Doctor("jin");
-		
+	}
+
+	public static void main(String[] args) {
+		new Client_Doctor("li");
+
 	}
 }
