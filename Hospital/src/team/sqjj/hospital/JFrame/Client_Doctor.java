@@ -199,7 +199,7 @@ public class Client_Doctor extends JFrame implements ActionListener {
                         patient=list.get(0);
 						br.setText(patient.getPatient_Name());
 						String patientlist = "";
-						Iterator<Patient> it = Queue.qlist.get(doctor.getDoctor_Id()).iterator();
+						Iterator<Patient> it =list.iterator();
 						while (it.hasNext()) {
 							Patient patient = it.next();
 
@@ -304,18 +304,20 @@ public class Client_Doctor extends JFrame implements ActionListener {
 					// TODO Auto-generated method stub
 					dispose();
 					if (patient != null) {
-						stopped=false;
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						list.remove(patient);
+//						stopped=false;
+//						try {
+//							Thread.sleep(1000);
+//						} catch (InterruptedException e1) {
+//							// TODO Auto-generated catch block
+//							e1.printStackTrace();
+//						}
+						
 						Queue.qlist.get(doctor.getDoctor_Id()).remove(patient);
 						Queue.qlist1.get(doctor.getDoctor_Id()).remove(patient);
 						Queue.qlist2.get(doctor.getDoctor_Id()).remove(patient);
-					}stopped=true;
+						
+					}
+					//stopped=true;
 					th=new DoctorClientThread();
 					th.start();
 					br.setText(""); 
